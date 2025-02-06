@@ -1,6 +1,9 @@
 package org.example.calendar_advanced.user.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.example.calendar_advanced.comment.entity.Comment;
 import org.example.calendar_advanced.schedule.entity.Schedule;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -37,6 +42,12 @@ public class User {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updatedDate;
+
+    public User(String username, String email, String password){
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
     public void addSchedule(Schedule schedule){
         schedules.add(schedule);
