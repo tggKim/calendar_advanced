@@ -1,5 +1,7 @@
 package org.example.calendar_advanced.domain.user.service;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.example.calendar_advanced.domain.user.dto.UserDeleteRequestDto;
 import org.example.calendar_advanced.domain.user.dto.UserResponseDto;
@@ -21,6 +23,9 @@ import java.util.NoSuchElementException;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     // 유저 저장
     @Transactional
@@ -54,6 +59,8 @@ public class UserService {
         }
 
         findUser.updateUsername(userUpdateRequestDto.getUsername());
+
+        entityManager.flush();
 
         return new UserResponseDto(findUser);
     }
