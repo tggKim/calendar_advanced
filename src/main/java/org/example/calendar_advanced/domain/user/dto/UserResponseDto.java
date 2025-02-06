@@ -1,5 +1,6 @@
 package org.example.calendar_advanced.domain.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import org.example.calendar_advanced.domain.user.entity.User;
 
@@ -10,7 +11,9 @@ public class UserResponseDto {
     private Long userId;
     private String username;
     private String email;
+    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
     private LocalDateTime createdDate;
+    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
     private LocalDateTime updatedDate;
 
     public UserResponseDto(User user){
