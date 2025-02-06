@@ -1,6 +1,6 @@
-package org.example.calendar_advanced.user.repository;
+package org.example.calendar_advanced.domain.user.repository;
 
-import org.example.calendar_advanced.user.entity.User;
+import org.example.calendar_advanced.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

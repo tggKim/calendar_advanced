@@ -1,9 +1,9 @@
-package org.example.calendar_advanced.comment.entity;
+package org.example.calendar_advanced.domain.comment.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import org.example.calendar_advanced.schedule.entity.Schedule;
-import org.example.calendar_advanced.user.entity.User;
+import org.example.calendar_advanced.domain.schedule.entity.Schedule;
+import org.example.calendar_advanced.domain.user.entity.User;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

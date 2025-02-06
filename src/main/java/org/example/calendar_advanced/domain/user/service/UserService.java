@@ -1,12 +1,15 @@
-package org.example.calendar_advanced.user.service;
+package org.example.calendar_advanced.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.calendar_advanced.user.dto.UserDeleteRequestDto;
-import org.example.calendar_advanced.user.dto.UserResponseDto;
-import org.example.calendar_advanced.user.dto.UserSaveRequestDto;
-import org.example.calendar_advanced.user.dto.UserUpdateRequestDto;
-import org.example.calendar_advanced.user.entity.User;
-import org.example.calendar_advanced.user.repository.UserRepository;
+import org.example.calendar_advanced.domain.user.dto.UserDeleteRequestDto;
+import org.example.calendar_advanced.domain.user.dto.UserResponseDto;
+import org.example.calendar_advanced.domain.user.dto.UserSaveRequestDto;
+import org.example.calendar_advanced.domain.user.dto.UserUpdateRequestDto;
+import org.example.calendar_advanced.domain.user.entity.User;
+import org.example.calendar_advanced.domain.user.repository.UserRepository;
+import org.example.calendar_advanced.global.error.ErrorCode;
+import org.example.calendar_advanced.global.error.exception.Exception401;
+import org.example.calendar_advanced.global.error.exception.Exception404;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +32,7 @@ public class UserService {
     // 유저 단건 조회
     @Transactional
     public UserResponseDto getUserById(Long userId){
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("userId에 해당하는 유저가 없습니다."));
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
         return new UserResponseDto(findUser);
     }
 
@@ -42,12 +45,12 @@ public class UserService {
     // 유저 업데이트
     @Transactional
     public UserResponseDto updateUser(Long userId, UserUpdateRequestDto userUpdateRequestDto){
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("userId에 해당하는 유저가 없습니다."));
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
 
         String savedPassword = findUser.getPassword();
         String requestPassword = userUpdateRequestDto.getPassword();
         if(!savedPassword.equals(requestPassword)){
-            throw new IllegalArgumentException("비밀번호가 잘못되었습니다.");
+            throw new Exception401(ErrorCode.INVALID_PASSWORD);
         }
 
         findUser.updateUsername(userUpdateRequestDto.getUsername());
@@ -58,10 +61,10 @@ public class UserService {
     // 유저 삭제
     @Transactional
     public void deleteUser(Long userId, UserDeleteRequestDto userDeleteRequestDto){
-        String savedPassword = userRepository.findPasswordByUserId(userId).orElseThrow(() -> new NoSuchElementException("userId에 해당하는 유저가 없습니다."));
+        String savedPassword = userRepository.findPasswordByUserId(userId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
 
         if(!savedPassword.equals(userDeleteRequestDto.getPassword())){
-            throw new IllegalArgumentException("비밀번호가 잘못되었습니다.");
+            throw new Exception401(ErrorCode.INVALID_PASSWORD);
         }
 
         userRepository.deleteById(userId);
