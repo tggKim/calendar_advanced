@@ -1,7 +1,7 @@
-package org.example.calendar_advanced.user.dto;
+package org.example.calendar_advanced.domain.user.dto;
 
 import lombok.Getter;
-import org.example.calendar_advanced.user.entity.User;
+import org.example.calendar_advanced.domain.user.entity.User;
 
 @Getter
 public class UserResponseDto {

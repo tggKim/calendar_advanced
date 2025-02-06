@@ -1,12 +1,11 @@
 package org.example.calendar_advanced.user.repository;
 
 import org.assertj.core.api.Assertions;
-import org.example.calendar_advanced.user.entity.User;
+import org.example.calendar_advanced.domain.user.entity.User;
+import org.example.calendar_advanced.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserRepositoryTest {

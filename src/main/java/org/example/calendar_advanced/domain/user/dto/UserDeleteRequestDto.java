@@ -1,4 +1,4 @@
-package org.example.calendar_advanced.user.dto;
+package org.example.calendar_advanced.domain.user.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
