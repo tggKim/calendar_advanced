@@ -1,6 +1,7 @@
 package org.example.calendar_advanced.global.error.controller;
 
 import org.example.calendar_advanced.global.error.exception.Exception401;
+import org.example.calendar_advanced.global.error.exception.Exception403;
 import org.example.calendar_advanced.global.error.exception.Exception404;
 import org.example.calendar_advanced.global.error.exception.Exception409;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,13 @@ public class ExceptionController {
 
     @ExceptionHandler
     protected ResponseEntity<Map<String, String>> handleException401(Exception401 ex){
+        Map<String, String> errorMessage = new HashMap<>();
+        errorMessage.put("message", ex.getErrorCode().getMessage());
+        return new ResponseEntity<>(errorMessage, ex.getErrorCode().getHttpStatus());
+    }
+
+    @ExceptionHandler
+    protected ResponseEntity<Map<String, String>> handleException403(Exception403 ex){
         Map<String, String> errorMessage = new HashMap<>();
         errorMessage.put("message", ex.getErrorCode().getMessage());
         return new ResponseEntity<>(errorMessage, ex.getErrorCode().getHttpStatus());

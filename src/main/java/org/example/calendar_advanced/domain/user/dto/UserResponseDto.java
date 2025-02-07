@@ -11,9 +11,9 @@ public class UserResponseDto {
     private Long userId;
     private String username;
     private String email;
-    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdDate;
-    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedDate;
 
     public UserResponseDto(User user){
