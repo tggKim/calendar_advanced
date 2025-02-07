@@ -440,3 +440,39 @@
 
 
 
+
+
+
+
+
+
+
+## 로그아웃
+
+**/api/logout POST 요청**
+
+<details>
+<summary>Request</summary>
+
+- 빈 body로 요청하면 됩니다.
+    
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+- 빈 body를 리턴합니다.
+
+실패
+- 세션을 지우는 것이므로 실패하지 않습니다.
+</details>
+
+
+
+
+
+
+
+
+
