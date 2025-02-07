@@ -1,7 +1,9 @@
 package org.example.calendar_advanced.domain.schedule.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.example.calendar_advanced.domain.comment.entity.Comment;
 import org.example.calendar_advanced.domain.user.entity.User;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,6 +17,7 @@ import java.util.List;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Getter
+@NoArgsConstructor
 public class Schedule {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long scheduleId;
@@ -40,6 +43,11 @@ public class Schedule {
     @Column(nullable = false)
     private LocalDateTime updatedDate;
 
+    public Schedule(String title, String todo){
+        this.title = title;
+        this.todo = todo;
+    }
+
     public void setUser(User user){
         this.user = user;
         user.addSchedule(this);
@@ -48,4 +56,5 @@ public class Schedule {
     public void addComment(Comment comment){
         comments.add(comment);
     }
+
 }
