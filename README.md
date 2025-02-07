@@ -284,6 +284,14 @@
 ```
 - 400 Bad Request
 - password는 필수로 입력 해야됩니다.
+
+```
+{
+    "message": "비밀번호가 잘못되었습니다."
+}
+```
+- 401 Unauthorized
+- 비밀번호가 틀리면 오류가 발생합니다.
 </details>
 
 
