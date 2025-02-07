@@ -55,7 +55,7 @@
 - username -> 유저 이름
 - email -> 유저 이메일
 - createDate -> 유저 생성일
-- updatedDate -> 유저저 수정일
+- updatedDate -> 유저 수정일
 
 실패
 ```
@@ -255,11 +255,35 @@
 실패
 ```
 {
-    "message": "userId에 해당하는 유저가 없습니다."
+    "message": "로그인이 필요합니다."
 }
 ```
-- 404 Not Found
-- 존재하지 않는 유저에 대해 요청하면 에러가 발생합니다.
+- 401 Unauthorized
+- 로그인하지 않으면 수정 요청을 할 수 없습니다.
+
+```
+{
+    "message": "유저에 대한 접근 권한이 없습니다."
+}
+```
+- 403 Forbidden
+- 로그인한 유저가 아닌 유저에 대한 수정 요청을 할 수 없습니다.
+
+```
+{
+    "username": "이름은 필수 입력 값입니다."
+}
+```
+- 400 Bad Request
+- username은 필수로 입력 해야됩니다.
+
+```
+{
+    "password": "비밀번호는 필수 입력 값입니다,"
+}
+```
+- 400 Bad Request
+- password는 필수로 입력 해야됩니다.
 </details>
 
 
