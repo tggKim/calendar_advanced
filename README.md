@@ -383,6 +383,7 @@
 <summary>Response</summary>
   
 성공
+```
 {
     "userId": 1,
     "username": "xx",
@@ -390,6 +391,7 @@
     "createdDate": "2025-02-07 17:12:09",
     "updatedDate": "2025-02-07 17:40:51"
 }
+```
 - userId -> 유저 식별자
 - username -> 유저 이름
 - email -> 유저 이메일
