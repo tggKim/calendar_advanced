@@ -1,5 +1,6 @@
 package org.example.calendar_advanced.domain.schedule.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,7 +13,9 @@ public class ScheduleResponseDto {
     private String username;
     private String title;
     private String todo;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedTime;
 
     @Builder
