@@ -291,11 +291,6 @@
 
 
 
-
-
-
-
-
 ## 유저 삭제
 
 **/api/users/{userId} POST 요청**
@@ -353,64 +348,4 @@
 - 비밀번호가 틀리면 오류가 발생합니다.
 </details>
 
-
-
-##로그인
-
-**/api/login POST 요청**
-
-<details>
-<summary>Request</summary>
-
-```
-{
-    "email" : "scie429@gmail.com",
-    "password" : "1234"
-}
-```
-- email -> 사용자의 이메
-- password -> 비밀번호
-    
-</details>
-
-<details>
-<summary>Response</summary>
-  
-성공
-```
-- 빈 body를 리턴합니다.
-
-실패
-```
-{
-    "message": "로그인이 필요합니다."
-}
-```
-- 401 Unauthorized
-- 로그인하지 않으면 삭제 요청을 할 수 없습니다.
-
-```
-{
-    "message": "유저에 대한 접근 권한이 없습니다."
-}
-```
-- 403 Forbidden
-- 로그인한 유저가 아닌 유저에 대한 삭제제 요청을 할 수 없습니다.
-
-```
-{
-    "password": "비밀번호는 필수 입력 값입니다,"
-}
-```
-- 400 Bad Request
-- password는 필수로 입력 해야됩니다.
-
-```
-{
-    "message": "비밀번호가 잘못되었습니다."
-}
-```
-- 401 Unauthorized
-- 비밀번호가 틀리면 오류가 발생합니다.
-</details>
 
