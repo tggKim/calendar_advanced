@@ -106,7 +106,7 @@
 <details>
 <summary>Request</summary>
 
-- api/users로 GET 요청하면 됩니다.
+- api/users GET 요청하면 됩니다.
     
 </details>
 
@@ -147,7 +147,13 @@
 
 ## 유저 단건 조회
 
-**/api/u호
+**/api/users/{userId} GET 요청**
+
+<details>
+<summary>Request</summary>
+
+- api/users/{userId} GET 요청하면 됩니다.
+    
 </details>
 
 <details>
@@ -168,45 +174,14 @@
 - email -> 유저 이메일
 - createDate -> 유저 생성일
 - updatedDa호
-</details>
-
-<details>
-<summary>Response</summary>
-  
-성공
-- 빈 body를 리턴한다.
 
 실패
 ```
 {
-    "message": "로그인이 필요합니다."
+    "message": "userId에 해당하는 유저가 없습니다."
 }
 ```
-- 401 Unauthorized
-- 로그인 되지 않은 상태에서는 삭 작업을 할 수 없습니다.
-
-```
-{
-    "message": "유저에 대한 접근 권한이 없습니다."
-}
-```
-- 403 Forbidden
-- 로그인한 유저가 아닌 다른 유저의 정보를 수정할 수 없습니다.
-
-```
-{
-    "password": "비밀번호는 필수 입력 값입니다,"
-}
-```
-- 400 Bad Request
-- password는 필수로 입력 해야됩니다.
-
-```
-{
-    "message": "비밀번호가 잘못되었습니다."
-}
-```
-- 401 Unauthorized
-- 비밀번호가 틀리면 에러가 발생합니다.
+- 존재하지 않는 유저에 대해 요청하면 에러가 발생합니다.
 </details>
+
 
