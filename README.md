@@ -33,7 +33,7 @@
 }
 ```
 - username -> 유저 이름
-- email -> 유저 이메
+- email -> 유저 이메일
 - password -> 비밀번호
 
 </details>
@@ -55,7 +55,7 @@
 - username -> 유저 이름
 - email -> 유저 이메일
 - createDate -> 유저 생성일
-- updatedDate -> 유 수정일
+- updatedDate -> 유저저 수정일
 
 실패
 ```
@@ -136,7 +136,7 @@
 - username -> 유저 이름
 - email -> 유저 이메일
 - createDate -> 유저 생성일
-- updatedDate -> 유 수정일
+- updatedDate -> 유저 수정일
 
 유저가 없을 경우
 ```
@@ -173,7 +173,7 @@
 - username -> 유저 이름
 - email -> 유저 이메일
 - createDate -> 유저 생성일
-- updatedDa호
+- updatedDa -> 유저 수정일
 
 실패
 ```
@@ -184,5 +184,94 @@
 - 404 Not Found
 - 존재하지 않는 유저에 대해 요청하면 에러가 발생합니다.
 </details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 유저 수정
+
+**/api/users/{userId} PATCH 요청**
+
+<details>
+<summary>Request</summary>
+
+```
+{
+    "username" : "ss",
+    "password" : "123"
+}
+```
+- username -> 유저 이름
+- password -> 비밀번호
+    
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+```
+{
+    "userId": 1,
+    "username": "ss",
+    "email": "scie430@gmail.com",
+    "createdDate": "2025-02-07 17:04:41",
+    "updatedDate": "2025-02-07 17:05:57"
+}
+```
+- userId -> 유저 식별자
+- username -> 유저 이름
+- email -> 유저 이메일
+- createDate -> 유저 생성일
+- updatedDate -> 유저 수정일
+
+실패
+```
+{
+    "message": "userId에 해당하는 유저가 없습니다."
+}
+```
+- 404 Not Found
+- 존재하지 않는 유저에 대해 요청하면 에러가 발생합니다.
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
