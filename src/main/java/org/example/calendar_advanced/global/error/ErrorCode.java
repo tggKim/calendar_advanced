@@ -11,7 +11,10 @@ public enum ErrorCode {
 
     // 404 에러
     SCHEDULE_NOT_FOUND("scheduleId에 해당하는 일정이 없습니다.", HttpStatus.NOT_FOUND),
-    USER_NOT_FOUND("userId에 해당하는 유저가 없습니다.", HttpStatus.NOT_FOUND);
+    USER_NOT_FOUND("userId에 해당하는 유저가 없습니다.", HttpStatus.NOT_FOUND),
+
+    //409 에러
+    EMAIL_ALREADY_EXISTS("이미 사용 중인 이메일입니다.", HttpStatus.CONFLICT);
 
     private String message;
     private HttpStatus httpStatus;

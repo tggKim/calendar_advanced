@@ -8,6 +8,7 @@ import org.example.calendar_advanced.domain.user.dto.UserUpdateRequestDto;
 import org.example.calendar_advanced.domain.user.entity.User;
 import org.example.calendar_advanced.global.error.exception.Exception401;
 import org.example.calendar_advanced.global.error.exception.Exception404;
+import org.example.calendar_advanced.global.error.exception.Exception409;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,9 +39,13 @@ class UserServiceTest {
         Assertions.assertThat(findUser.getUsername()).isEqualTo(savedUser.getUsername());
         Assertions.assertThat(findUser.getEmail()).isEqualTo(savedUser.getEmail());
 
+        // 동일한 이메일로 로그인시 예외 테스트
+        Assertions.assertThatThrownBy(() -> userService.saveUser(userSaveRequestDto)).isInstanceOf(Exception409.class);
+
         // 유저 삭제하고 조회했을때 예외 테스트
         userService.deleteUser(savedUser.getUserId(), new UserDeleteRequestDto("1234"));
         Assertions.assertThatThrownBy(() -> userService.getUserById(savedUser.getUserId())).isInstanceOf(Exception404.class);
+
     }
 
     @Test

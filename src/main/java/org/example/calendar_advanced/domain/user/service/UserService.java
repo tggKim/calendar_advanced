@@ -12,6 +12,7 @@ import org.example.calendar_advanced.domain.user.repository.UserRepository;
 import org.example.calendar_advanced.global.error.ErrorCode;
 import org.example.calendar_advanced.global.error.exception.Exception401;
 import org.example.calendar_advanced.global.error.exception.Exception404;
+import org.example.calendar_advanced.global.error.exception.Exception409;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,11 @@ public class UserService {
     // 유저 저장
     @Transactional
     public UserResponseDto saveUser(UserSaveRequestDto userSaveRequestDto){
+
+        if(userRepository.existsByEmail(userSaveRequestDto.getEmail())){
+            throw new Exception409(ErrorCode.EMAIL_ALREADY_EXISTS);
+        }
+
         User savedUser = userRepository.save(userSaveRequestDto.toUser());
         return new UserResponseDto(savedUser);
     }
