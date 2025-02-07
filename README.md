@@ -311,7 +311,6 @@
 <summary>Response</summary>
   
 성공
-```
 - 빈 body를 리턴합니다.
 
 실패
@@ -347,5 +346,6 @@
 - 401 Unauthorized
 - 비밀번호가 틀리면 오류가 발생합니다.
 </details>
+
 
 
