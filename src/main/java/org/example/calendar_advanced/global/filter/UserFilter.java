@@ -51,16 +51,7 @@ public class UserFilter implements Filter {
         Map<String, String> errorMessage = new HashMap<>();
         errorMessage.put("message", errorCode.getMessage());
 
-        if(session == null){
-            try{
-                String json = new ObjectMapper().writeValueAsString(errorMessage);
-                response.getWriter().write(json);
-                return true;
-            }catch (Exception e){
-                log.error(e.getMessage());
-            }
-        }
-        else if(session != null && session.getAttribute("userId") == null){
+        if(session == null || session.getAttribute("userId") == null){
             try{
                 String json = new ObjectMapper().writeValueAsString(errorMessage);
                 response.getWriter().write(json);

@@ -36,12 +36,14 @@ public class LoginController {
     }
 
     @PostMapping("/api/logout")
-    public ResponseEntity<Void> logout(HttpServletRequest httpServletRequest){
+    public ResponseEntity<Map<String, String>> logout(HttpServletRequest httpServletRequest){
         HttpSession session = httpServletRequest.getSession(false);
         if(session != null){
             session.removeAttribute("userId");
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        Map<String, String> message = new HashMap<>();
+        message.put("message", "로그아웃 되었습니다.");
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }
