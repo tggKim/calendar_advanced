@@ -495,7 +495,72 @@
 
 
 
+## 일정 등록
 
+**/api/schedules POST 요청**
+
+<details>
+<summary>Request</summary>
+  
+```
+{
+    "title" : "제목",
+    "todo" : "할 일"
+}
+```
+- title -> 제목
+- todo -> 할 일
+
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+```
+{
+    "scheduleId": 3,
+    "userId": 1,
+    "username": "tgg",
+    "title": "제목",
+    "todo": "할 일",
+    "createdTime": "2025-02-08 16:49:51",
+    "updatedTime": "2025-02-08 16:49:51"
+}
+```
+- scheduleId -> 일정 식별자
+- userId -> 유저 식별자
+- username -> 유저 이름
+- title -> 제목
+- todo -> 할 일
+- createDate -> 유저 생성일
+- updatedDate -> 유저 수정일
+
+실패
+```
+{
+    "message": "로그인이 필요합니다."
+}
+```
+- 401 Unauthorized
+- 로그인하지 않으면 일정 등록을 할 수 없습니다.
+
+```
+{
+    "title": "제목은 필수 입력 값 입니다."
+}
+```
+- 400 Bad Request
+- title은 필수로 입력 해야됩니다.
+
+```
+{
+    "todo": "할 일은 필수 입력 값 입니다."
+}
+```
+- 400 Bad Request
+- todo는 필수로 입력 해야됩니다.
+</details>
 
 
 
