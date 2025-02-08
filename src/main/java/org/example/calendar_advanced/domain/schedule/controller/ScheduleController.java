@@ -28,13 +28,11 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponseDto> saveSchedule(@Valid @RequestBody ScheduleSaveRequestDto scheduleSaveRequestDto, HttpServletRequest httpServletRequest){
 
         HttpSession session = httpServletRequest.getSession();
-        if(session != null){
-            Long userId = (Long) session.getAttribute("userId");
-            if(userId != null){
-                return new ResponseEntity<>(scheduleService.saveSchedule(scheduleSaveRequestDto, userId), HttpStatus.CREATED);
-            }
+        Long userId = null;
+        if(session != null && session.getAttribute("userId") != null){
+            userId = (Long) session.getAttribute("userId");
         }
+        return new ResponseEntity<>(scheduleService.saveSchedule(scheduleSaveRequestDto, userId), HttpStatus.CREATED);
 
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 }
