@@ -18,6 +18,137 @@
 
 # 기능
 
+
+
+
+
+
+
+
+## 로그인
+
+**/api/login POST 요청**
+
+<details>
+<summary>Request</summary>
+
+```
+{
+    "email" : "scie429@gmail.com",
+    "password" : "1234"
+}
+```
+- email -> 유저 이메
+- password -> 비밀번호
+    
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+```
+{
+    "userId": 1,
+    "username": "xx",
+    "email": "scie429@gmail.com",
+    "createdDate": "2025-02-07 17:12:09",
+    "updatedDate": "2025-02-07 17:40:51"
+}
+```
+- userId -> 유저 식별자
+- username -> 유저 이름
+- email -> 유저 이메일
+- createDate -> 유저 생성일
+- updatedDate -> 유저 수정일
+
+실패
+```
+{
+    "email": "올바른 이메일 형식이 아닙니다."
+}
+```
+- 400 Bad Request
+- 올바른 이메일 형식을 입력해야 됩니다.
+
+```
+{
+    "message": "해당 이메일로 등록된 유저가 없습니다."
+}
+```
+- 404 Not Found
+- 이메일로 등록된 유저가 없으면 에러가 발생합니다.
+
+```
+{
+    "password": "비밀번호는 필수 입력 값입니다,"
+}
+```
+- 400 Bad Request
+- password는 필수로 입력 해야됩니다.
+
+```
+{
+    "message": "비밀번호가 잘못되었습니다."
+}
+```
+- 401 Unauthorized
+- 비밀번호가 틀리면 오류가 발생합니다.
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 로그아웃
+
+**/api/logout POST 요청**
+
+<details>
+<summary>Request</summary>
+
+- 빈 body로 요청하면 됩니다.
+    
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+```
+{
+    "message": "로그아웃 되었습니다."
+}
+```
+- 로그아웃이 성공되었다는 메시지를 반환합니다.
+
+실패
+- 세션을 지우는 것이므로 실패하지 않습니다.
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 유저 등록
 
 **/api/users POST 요청**
@@ -367,117 +498,7 @@
 
 
 
-## 로그인
 
-**/api/login POST 요청**
-
-<details>
-<summary>Request</summary>
-
-```
-{
-    "email" : "scie429@gmail.com",
-    "password" : "1234"
-}
-```
-- email -> 유저 이메
-- password -> 비밀번호
-    
-</details>
-
-<details>
-<summary>Response</summary>
-  
-성공
-```
-{
-    "userId": 1,
-    "username": "xx",
-    "email": "scie429@gmail.com",
-    "createdDate": "2025-02-07 17:12:09",
-    "updatedDate": "2025-02-07 17:40:51"
-}
-```
-- userId -> 유저 식별자
-- username -> 유저 이름
-- email -> 유저 이메일
-- createDate -> 유저 생성일
-- updatedDate -> 유저 수정일
-
-실패
-```
-{
-    "email": "올바른 이메일 형식이 아닙니다."
-}
-```
-- 400 Bad Request
-- 올바른 이메일 형식을 입력해야 됩니다.
-
-```
-{
-    "message": "해당 이메일로 등록된 유저가 없습니다."
-}
-```
-- 404 Not Found
-- 이메일로 등록된 유저가 없으면 에러가 발생합니다.
-
-```
-{
-    "password": "비밀번호는 필수 입력 값입니다,"
-}
-```
-- 400 Bad Request
-- password는 필수로 입력 해야됩니다.
-
-```
-{
-    "message": "비밀번호가 잘못되었습니다."
-}
-```
-- 401 Unauthorized
-- 비밀번호가 틀리면 오류가 발생합니다.
-</details>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 로그아웃
-
-**/api/logout POST 요청**
-
-<details>
-<summary>Request</summary>
-
-- 빈 body로 요청하면 됩니다.
-    
-</details>
-
-<details>
-<summary>Response</summary>
-  
-성공
-```
-{
-    "message": "로그아웃 되었습니다."
-}
-```
-- 로그아웃이 성공되었다는 메시지를 반환합니다.
-
-실패
-- 세션을 지우는 것이므로 실패하지 않습니다.
-</details>
 
 
 
