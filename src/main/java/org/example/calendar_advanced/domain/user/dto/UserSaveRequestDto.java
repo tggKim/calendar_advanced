@@ -21,7 +21,4 @@ public class UserSaveRequestDto {
     @NotBlank(message = "비밀번호는 필수 입력 값입니다,")
     private String password;
 
-    public User toUser(){
-        return new User(this.username, this.email, this.password);
-    }
 }

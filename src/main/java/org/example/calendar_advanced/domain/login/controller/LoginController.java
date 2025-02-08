@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.Session;
 import org.example.calendar_advanced.domain.login.dto.LoginRequestDto;
+import org.example.calendar_advanced.domain.login.dto.LoginResponseDto;
 import org.example.calendar_advanced.domain.login.service.LoginService;
 import org.example.calendar_advanced.domain.user.dto.UserResponseDto;
 import org.springframework.http.HttpStatus;
@@ -25,14 +26,14 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping("/api/login")
-    public ResponseEntity<UserResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto, HttpServletRequest httpServletRequest){
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto, HttpServletRequest httpServletRequest){
 
-        UserResponseDto userResponseDto = loginService.validateLoginAndReturnUserDto(loginRequestDto);
+        LoginResponseDto loginResponseDto = loginService.validateLoginAndReturnUserDto(loginRequestDto);
 
         HttpSession session = httpServletRequest.getSession();
-        session.setAttribute("userId", userResponseDto.getUserId());
+        session.setAttribute("userId", loginResponseDto.getUserId());
 
-        return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);
     }
 
     @PostMapping("/api/logout")

@@ -9,6 +9,7 @@ import org.example.calendar_advanced.domain.user.dto.UserSaveRequestDto;
 import org.example.calendar_advanced.domain.user.dto.UserUpdateRequestDto;
 import org.example.calendar_advanced.domain.user.entity.User;
 import org.example.calendar_advanced.domain.user.repository.UserRepository;
+import org.example.calendar_advanced.global.config.PasswordEncoder;
 import org.example.calendar_advanced.global.error.ErrorCode;
 import org.example.calendar_advanced.global.error.exception.Exception401;
 import org.example.calendar_advanced.global.error.exception.Exception404;
@@ -24,6 +25,7 @@ import java.util.NoSuchElementException;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @PersistenceContext
     EntityManager entityManager;
@@ -36,7 +38,9 @@ public class UserService {
             throw new Exception409(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
 
-        User savedUser = userRepository.save(userSaveRequestDto.toUser());
+        String encodedPassword = passwordEncoder.encode(userSaveRequestDto.getPassword());
+
+        User savedUser = userRepository.save(new User(userSaveRequestDto.getUsername(), userSaveRequestDto.getEmail(), encodedPassword));
         return new UserResponseDto(savedUser);
     }
 
@@ -60,7 +64,7 @@ public class UserService {
 
         String savedPassword = findUser.getPassword();
         String requestPassword = userUpdateRequestDto.getPassword();
-        if(!savedPassword.equals(requestPassword)){
+        if(!passwordEncoder.matches(requestPassword, savedPassword)){
             throw new Exception401(ErrorCode.INVALID_PASSWORD);
         }
 
@@ -76,7 +80,7 @@ public class UserService {
     public void deleteUser(Long userId, UserDeleteRequestDto userDeleteRequestDto){
         String savedPassword = userRepository.findPasswordByUserId(userId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
 
-        if(!savedPassword.equals(userDeleteRequestDto.getPassword())){
+        if(!passwordEncoder.matches(userDeleteRequestDto.getPassword(), savedPassword)){
             throw new Exception401(ErrorCode.INVALID_PASSWORD);
         }
 
