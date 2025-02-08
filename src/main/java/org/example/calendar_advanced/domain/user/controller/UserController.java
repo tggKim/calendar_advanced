@@ -1,5 +1,9 @@
 package org.example.calendar_advanced.domain.user.controller;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.calendar_advanced.domain.user.dto.UserDeleteRequestDto;
@@ -12,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -42,8 +47,11 @@ public class UserController {
     }
 
     @PostMapping("/{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("userId") Long userId, @Valid @RequestBody UserDeleteRequestDto userDeleteRequestDto){
+    public void deleteUser(@PathVariable("userId") Long userId, @Valid @RequestBody UserDeleteRequestDto userDeleteRequestDto, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         userService.deleteUser(userId, userDeleteRequestDto);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/api/logout");
+        dispatcher.forward(request, response);
     }
+
 }
