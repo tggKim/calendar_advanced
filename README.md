@@ -571,5 +571,67 @@
 
 
 
+## 일정 목록 조회
+
+**/api/schedules GET 요청**
+
+<details>
+<summary>Request</summary>
+
+- api/schedules GET 요청하면 됩니다.
+    
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+```
+[
+    {
+        "scheduleId": 1,
+        "userId": 1,
+        "username": "xx",
+        "title": "제목",
+        "todo": "할 일",
+        "createdTime": "2025-02-09 19:27:54",
+        "updatedTime": "2025-02-09 19:27:54"
+    },
+    {
+        "scheduleId": 2,
+        "userId": 1,
+        "username": "xx",
+        "title": "제목",
+        "todo": "할 일",
+        "createdTime": "2025-02-09 19:27:56",
+        "updatedTime": "2025-02-09 19:27:56"
+    },
+    {
+        "scheduleId": 3,
+        "userId": 1,
+        "username": "xx",
+        "title": "제목",
+        "todo": "할 일",
+        "createdTime": "2025-02-09 19:27:57",
+        "updatedTime": "2025-02-09 19:27:57"
+    }
+]
+```
+- scheduleId -> 일정 식별자
+- userId -> 유저 식별자
+- username -> 유저 이름
+- title -> 제목
+- todo -> 할 일
+- createDate -> 유저 생성일
+- updatedDate -> 유저 수정일
+
+유저가 없을 경우
+```
+[]
+```
+- 유저가 존재하지 않으면 빈 리스트를 반환합니다.
+</details>
+
+
 
 
