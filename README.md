@@ -646,12 +646,12 @@
 
 ## 일정 단건 조회
 
-**/api/schedules/{scsheduleId} GET 요청**
+**/api/schedules/{scheduleId} GET 요청**
 
 <details>
 <summary>Request</summary>
 
-- /api/schedules/{scsheduleId} GET 요청하면 됩니다.
+- /api/schedules/{scheduleId} GET 요청하면 됩니다.
     
 </details>
 
