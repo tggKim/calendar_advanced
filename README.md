@@ -635,3 +635,55 @@
 
 
 
+
+
+
+
+
+
+
+
+
+## 일정 단건 조회
+
+**/api/schedules/{scsheduleId} GET 요청**
+
+<details>
+<summary>Request</summary>
+
+- /api/schedules/{scsheduleId} GET 요청하면 됩니다.
+    
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+```
+{
+    "scheduleId": 1,
+    "userId": 1,
+    "username": "tgghuhu",
+    "title": "제목",
+    "todo": "할 일",
+    "createdTime": "2025-02-09 21:01:35",
+    "updatedTime": "2025-02-09 21:01:35"
+}
+```
+- scheduleId -> 일정 식별자
+- userId -> 유저 식별자
+- username -> 유저 이름
+- title -> 제목
+- todo -> 할 일
+- createDate -> 유저 생성일
+- updatedDate -> 유저 수정일
+
+실패
+```
+{
+    "message": "scheduleId에 해당하는 일정이 없습니다."
+}
+```
+- 404 Not Found
+- 존재하지 않는 일정에 대해 요청하면 에러가 발생합니다.
+</details>
