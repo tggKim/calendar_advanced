@@ -47,4 +47,9 @@ public class ScheduleService {
     public List<ScheduleResponseDto> getAllSchedules(){
         return scheduleRepository.getAllSchedules();
     }
+
+    @Transactional
+    public ScheduleResponseDto getScheduleById(Long scheduleId){
+        return scheduleRepository.getScheduleById(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
+    }
 }
