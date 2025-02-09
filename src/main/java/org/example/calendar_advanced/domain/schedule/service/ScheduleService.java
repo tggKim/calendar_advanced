@@ -13,6 +13,8 @@ import org.example.calendar_advanced.global.error.exception.Exception404;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
@@ -41,4 +43,8 @@ public class ScheduleService {
                 .build();
     }
 
+    @Transactional
+    public List<ScheduleResponseDto> getAllSchedules(){
+        return scheduleRepository.getAllSchedules();
+    }
 }
