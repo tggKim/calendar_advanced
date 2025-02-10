@@ -974,7 +974,7 @@
 - userId -> 유저 식별자
 - username -> 유저 이름
 - content -> 댓글 내용
-- createDate -> 유저 생성일
+- createdDate -> 유저 생성일
 - updatedDate -> 유저 수정일
 
 실패
