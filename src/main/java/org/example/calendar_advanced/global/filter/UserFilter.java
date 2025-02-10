@@ -32,9 +32,9 @@ public class UserFilter implements Filter {
                     return;
                 }
 
-                if(checkSameUser(session, httpServletResponse, strs)){
-                    return;
-                }
+//                if(checkSameUser(session, httpServletResponse, strs)){
+//                    return;
+//                }
             }
         }
 
@@ -64,27 +64,27 @@ public class UserFilter implements Filter {
         return false;
     }
 
-    private boolean checkSameUser(HttpSession session, HttpServletResponse response, String[] strs){
-        ErrorCode errorCode = ErrorCode.USER_ACCESS_DENIED;
-
-        response.setStatus(errorCode.getHttpStatus().value());
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        Map<String, String> errorMessage = new HashMap<>();
-        errorMessage.put("message", errorCode.getMessage());
-
-        Long userId = (Long)session.getAttribute("userId");
-        if(userId != Long.parseLong(strs[strs.length-1])){
-            try{
-                String json = new ObjectMapper().writeValueAsString(errorMessage);
-                response.getWriter().write(json);
-                return true;
-            }catch (Exception e){
-                log.error(e.getMessage());
-            }
-        }
-
-        return false;
-    }
+//    private boolean checkSameUser(HttpSession session, HttpServletResponse response, String[] strs){
+//        ErrorCode errorCode = ErrorCode.USER_ACCESS_DENIED;
+//
+//        response.setStatus(errorCode.getHttpStatus().value());
+//        response.setContentType("application/json");
+//        response.setCharacterEncoding("UTF-8");
+//
+//        Map<String, String> errorMessage = new HashMap<>();
+//        errorMessage.put("message", errorCode.getMessage());
+//
+//        Long userId = (Long)session.getAttribute("userId");
+//        if(userId != Long.parseLong(strs[strs.length-1])){
+//            try{
+//                String json = new ObjectMapper().writeValueAsString(errorMessage);
+//                response.getWriter().write(json);
+//                return true;
+//            }catch (Exception e){
+//                log.error(e.getMessage());
+//            }
+//        }
+//
+//        return false;
+//    }
 }

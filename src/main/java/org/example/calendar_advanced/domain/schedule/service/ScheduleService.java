@@ -60,9 +60,11 @@ public class ScheduleService {
     }
 
     @Transactional
-    public ScheduleResponseDto updateSchedule(Long scheduleId, Long userId, ScheduleUpdateRequestDto scheduleUpdateRequestDto){
+    public ScheduleResponseDto updateSchedule(Long scheduleId, Long sessionUserId, ScheduleUpdateRequestDto scheduleUpdateRequestDto){
 
-        validateLoginUserAndPassword(scheduleId, userId, scheduleUpdateRequestDto.getPassword());
+        validateLoginUser(scheduleId,  sessionUserId);
+
+        validatePassword(scheduleId, scheduleUpdateRequestDto.getPassword());
 
         // 일정을 업데이트
         Schedule findSchedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
@@ -75,21 +77,25 @@ public class ScheduleService {
     }
 
     @Transactional
-    public void deleteSchedule(Long scheduleId, Long userId, ScheduleDeleteRequestDto scheduleDeleteRequestDto){
+    public void deleteSchedule(Long scheduleId, Long sessionUserId, ScheduleDeleteRequestDto scheduleDeleteRequestDto){
 
-        validateLoginUserAndPassword(scheduleId, userId, scheduleDeleteRequestDto.getPassword());
+        validateLoginUser(scheduleId,  sessionUserId);
+
+        validatePassword(scheduleId, scheduleDeleteRequestDto.getPassword());
 
         scheduleRepository.deleteById(scheduleId);
 
     }
 
-    private void validateLoginUserAndPassword(Long scheduleId, Long userId, String rawPassword){
+    private void validateLoginUser(Long scheduleId, Long userId){
         // 현재 로그인한 유저의 일정인지 확인
         String findUserId = scheduleRepository.getUserIdByScheduleId(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
         if(userId != Long.parseLong(findUserId)){
             throw new Exception403(ErrorCode.SCHEDULE_ACCESS_DENIED);
         }
+    }
 
+    private void validatePassword(Long userId, String rawPassword){
         // 유저의 비밀번홀 검사
         String findPassword = userRepository.findPasswordByUserId(userId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
         if(!passwordEncoder.matches(rawPassword, findPassword)){

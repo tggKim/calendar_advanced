@@ -47,17 +47,17 @@ public class ScheduleController {
     @PatchMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> updateSchedule(@PathVariable("scheduleId") Long scheduleId, @Valid @RequestBody ScheduleUpdateRequestDto scheduleUpdateRequestDto, HttpServletRequest httpServletRequest){
 
-        Long userId = getUserIdBySession(httpServletRequest);
+        Long sessionUserId = getUserIdBySession(httpServletRequest);
 
-        return new ResponseEntity<>(scheduleService.updateSchedule(scheduleId, userId, scheduleUpdateRequestDto), HttpStatus.OK);
+        return new ResponseEntity<>(scheduleService.updateSchedule(scheduleId, sessionUserId, scheduleUpdateRequestDto), HttpStatus.OK);
     }
 
     @PostMapping("/{scheduleId}")
     public ResponseEntity<Void> deleteSchedule(@PathVariable("scheduleId") Long scheduleId, @Valid @RequestBody ScheduleDeleteRequestDto scheduleDeleteRequestDto, HttpServletRequest httpServletRequest){
 
-        Long userId = getUserIdBySession(httpServletRequest);
+        Long sessionUserId = getUserIdBySession(httpServletRequest);
 
-        scheduleService.deleteSchedule(scheduleId, userId, scheduleDeleteRequestDto);
+        scheduleService.deleteSchedule(scheduleId, sessionUserId, scheduleDeleteRequestDto);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

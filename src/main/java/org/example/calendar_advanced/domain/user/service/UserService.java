@@ -12,6 +12,7 @@ import org.example.calendar_advanced.domain.user.repository.UserRepository;
 import org.example.calendar_advanced.global.config.PasswordEncoder;
 import org.example.calendar_advanced.global.error.ErrorCode;
 import org.example.calendar_advanced.global.error.exception.Exception401;
+import org.example.calendar_advanced.global.error.exception.Exception403;
 import org.example.calendar_advanced.global.error.exception.Exception404;
 import org.example.calendar_advanced.global.error.exception.Exception409;
 import org.springframework.stereotype.Service;
@@ -59,14 +60,14 @@ public class UserService {
 
     // 유저 업데이트
     @Transactional
-    public UserResponseDto updateUser(Long userId, UserUpdateRequestDto userUpdateRequestDto){
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
+    public UserResponseDto updateUser(Long requestUserId, Long sessionUserId, UserUpdateRequestDto userUpdateRequestDto){
+        User findUser = userRepository.findById(requestUserId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
 
-        String savedPassword = findUser.getPassword();
-        String requestPassword = userUpdateRequestDto.getPassword();
-        if(!passwordEncoder.matches(requestPassword, savedPassword)){
-            throw new Exception401(ErrorCode.INVALID_PASSWORD);
-        }
+        validateLoginUser(requestUserId, sessionUserId);
+
+        String rawPassword = userUpdateRequestDto.getPassword();
+        String encodedPassword = findUser.getPassword();
+        validatePassword(rawPassword, encodedPassword);
 
         findUser.updateUsername(userUpdateRequestDto.getUsername());
 
@@ -77,13 +78,28 @@ public class UserService {
 
     // 유저 삭제
     @Transactional
-    public void deleteUser(Long userId, UserDeleteRequestDto userDeleteRequestDto){
-        String savedPassword = userRepository.findPasswordByUserId(userId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
+    public void deleteUser(Long requestUserId, Long sessionUserId, UserDeleteRequestDto userDeleteRequestDto){
+        String encodedPassword = userRepository.findPasswordByUserId(requestUserId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
 
-        if(!passwordEncoder.matches(userDeleteRequestDto.getPassword(), savedPassword)){
+        validateLoginUser(requestUserId, sessionUserId);
+
+        validatePassword(userDeleteRequestDto.getPassword(), encodedPassword);
+
+        userRepository.deleteById(requestUserId);
+    }
+
+    private void validateLoginUser(Long requestUserId, Long sessionUserId){
+        // 현재 로그인한 유저인지 확인
+        if(requestUserId != sessionUserId){
+            throw new Exception403(ErrorCode.USER_ACCESS_DENIED);
+        }
+    }
+
+    private void validatePassword(String rawPassword, String encodedPassword){
+        // 유저의 비밀번호 검사
+        if(!passwordEncoder.matches(rawPassword, encodedPassword)){
             throw new Exception401(ErrorCode.INVALID_PASSWORD);
         }
-
-        userRepository.deleteById(userId);
     }
+
 }

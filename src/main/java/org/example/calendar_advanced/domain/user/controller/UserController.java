@@ -4,6 +4,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.calendar_advanced.domain.user.dto.UserDeleteRequestDto;
@@ -42,16 +43,31 @@ public class UserController {
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity<UserResponseDto> updateUser(@PathVariable("userId") Long userId,@Valid @RequestBody UserUpdateRequestDto userUpdateRequestDto){
-        return new ResponseEntity<>(userService.updateUser(userId, userUpdateRequestDto), HttpStatus.OK);
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable("userId") Long userId,@Valid @RequestBody UserUpdateRequestDto userUpdateRequestDto, HttpServletRequest httpServletRequest){
+
+        Long sessionUserId = getUserIdBySession(httpServletRequest);
+
+        return new ResponseEntity<>(userService.updateUser(userId, sessionUserId, userUpdateRequestDto), HttpStatus.OK);
     }
 
     @PostMapping("/{userId}")
     public void deleteUser(@PathVariable("userId") Long userId, @Valid @RequestBody UserDeleteRequestDto userDeleteRequestDto, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        userService.deleteUser(userId, userDeleteRequestDto);
+
+        Long sessionUserId = getUserIdBySession(request);
+
+        userService.deleteUser(userId, sessionUserId, userDeleteRequestDto);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/api/logout");
         dispatcher.forward(request, response);
+    }
+
+    private Long getUserIdBySession(HttpServletRequest httpServletRequest){
+        HttpSession session = httpServletRequest.getSession();
+        Long userId = null;
+        if(session != null && session.getAttribute("userId") != null){
+            userId = (Long) session.getAttribute("userId");
+        }
+        return userId;
     }
 
 }
