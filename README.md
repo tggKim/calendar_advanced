@@ -729,7 +729,7 @@
 ```
 - title -> 제목
 - todo -> 할 일
-- password -> 비밀번
+- password -> 비밀번호호
     
 </details>
 
@@ -842,7 +842,7 @@
     "password" : "1234"
 }
 ```
-- password -> 비밀번
+- password -> 비밀번호
     
 </details>
 
