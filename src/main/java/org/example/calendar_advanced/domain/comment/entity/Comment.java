@@ -43,6 +43,10 @@ public class Comment {
         this.content = content;
     }
 
+    public void updateContent(String content){
+        this.content = content;
+    }
+
     public void setSchedule(Schedule schedule){
         this.schedule = schedule;
         schedule.addComment(this);

@@ -13,6 +13,7 @@ public enum ErrorCode {
     // 403
     USER_ACCESS_DENIED("유저에 대한 접근 권한이 없습니다.", HttpStatus.FORBIDDEN),
     SCHEDULE_ACCESS_DENIED("일정에 대한 접근 권한이 없습니다.", HttpStatus.FORBIDDEN),
+    COMMENT_ACCESS_DENIED("댓글에 대한 접근 권한이 없습니다.", HttpStatus.FORBIDDEN),
 
     // 404 에러
     COMMENT_NOT_FOUND("commentId에 해당하는 유저가 없습니다.", HttpStatus.NOT_FOUND),
