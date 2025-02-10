@@ -9,10 +9,9 @@ import org.example.calendar_advanced.domain.comment.dto.CommentSaveRequestDto;
 import org.example.calendar_advanced.domain.comment.service.CommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/comments")
@@ -25,6 +24,11 @@ public class CommentController {
         Long sessionUserId = getUserIdBySession(httpServletRequest);
 
         return new ResponseEntity<>(commentService.saveComment(commentSaveRequestDto, sessionUserId), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CommentResponseDto>> getAllComments(){
+        return new ResponseEntity<>(commentService.getAllComments(), HttpStatus.OK);
     }
 
     private Long getUserIdBySession(HttpServletRequest httpServletRequest){
