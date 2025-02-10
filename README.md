@@ -641,11 +641,11 @@
 - createDate -> 유저 생성일
 - updatedDate -> 유저 수정일
 
-유저가 없을 경우
+일정이 없을 경우
 ```
 []
 ```
-- 유저가 존재하지 않으면 빈 리스트를 반환합니다.
+- 일정이이 존재하지 않으면 빈 리스트를 반환합니다.
 </details>
 
 
@@ -1022,12 +1022,12 @@
 
 ## 일정 목록 조회
 
-**/api/schedules GET 요청**
+**/api/comments GET 요청**
 
 <details>
 <summary>Request</summary>
 
-- api/schedules GET 요청하면 됩니다.
+- api/comments GET 요청하면 됩니다.
     
 </details>
 
@@ -1038,45 +1038,54 @@
 ```
 [
     {
+        "commentId": 1,
         "scheduleId": 1,
         "userId": 1,
-        "username": "xx",
-        "title": "제목",
-        "todo": "할 일",
-        "createdTime": "2025-02-09 19:27:54",
-        "updatedTime": "2025-02-09 19:27:54"
+        "username": "tgghuhu",
+        "content": "댓글 내용",
+        "createdTime": "2025-02-10 16:36:30",
+        "updatedTime": "2025-02-10 16:36:30"
     },
     {
-        "scheduleId": 2,
+        "commentId": 2,
+        "scheduleId": 1,
         "userId": 1,
-        "username": "xx",
-        "title": "제목",
-        "todo": "할 일",
-        "createdTime": "2025-02-09 19:27:56",
-        "updatedTime": "2025-02-09 19:27:56"
+        "username": "tgghuhu",
+        "content": "댓글 내용",
+        "createdTime": "2025-02-10 16:36:30",
+        "updatedTime": "2025-02-10 16:36:30"
     },
     {
-        "scheduleId": 3,
+        "commentId": 3,
+        "scheduleId": 1,
         "userId": 1,
-        "username": "xx",
-        "title": "제목",
-        "todo": "할 일",
-        "createdTime": "2025-02-09 19:27:57",
-        "updatedTime": "2025-02-09 19:27:57"
+        "username": "tgghuhu",
+        "content": "댓글 내용",
+        "createdTime": "2025-02-10 16:36:31",
+        "updatedTime": "2025-02-10 16:36:31"
+    },
+    {
+        "commentId": 4,
+        "scheduleId": 1,
+        "userId": 1,
+        "username": "tgghuhu",
+        "content": "댓글 내용",
+        "createdTime": "2025-02-10 16:49:10",
+        "updatedTime": "2025-02-10 16:49:10"
     }
 ]
 ```
+- commentId -> 댓글 식별자
 - scheduleId -> 일정 식별자
 - userId -> 유저 식별자
 - username -> 유저 이름
-- title -> 제목
-- todo -> 할 일
+- content -> 댓글 내용
 - createDate -> 유저 생성일
 - updatedDate -> 유저 수정일
 
-유저가 없을 경우
+댓글이 없을 경우
 ```
 []
 ```
-- 유저가 존재하지 않으면 빈 리스트를 반환합니다.
+- 댓글 존재하지 않으면 빈 리스트를 반환합니다.
 </details>
