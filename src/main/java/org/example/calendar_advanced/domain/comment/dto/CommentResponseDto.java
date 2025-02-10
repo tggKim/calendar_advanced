@@ -11,8 +11,8 @@ public class CommentResponseDto {
     private Long commentId;
     private Long scheduleId;
     private Long userId;
-    private String content;
     private String username;
+    private String content;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
