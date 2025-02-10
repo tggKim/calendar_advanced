@@ -12,16 +12,18 @@ public class CommentResponseDto {
     private Long scheduleId;
     private Long userId;
     private String content;
+    private String username;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedTime;
 
     @Builder
-    public CommentResponseDto(Long commentId, Long scheduleId, Long userId, String content, LocalDateTime createdTime, LocalDateTime updatedTime){
+    public CommentResponseDto(Long commentId, Long scheduleId, Long userId, String username, String content, LocalDateTime createdTime, LocalDateTime updatedTime){
         this.commentId = commentId;
         this.scheduleId = scheduleId;
         this.userId = userId;
+        this.username = username;
         this.content = content;
         this.createdTime = createdTime;
         this.updatedTime = updatedTime;
