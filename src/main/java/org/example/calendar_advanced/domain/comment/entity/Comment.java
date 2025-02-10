@@ -1,7 +1,9 @@
 package org.example.calendar_advanced.domain.comment.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.example.calendar_advanced.domain.schedule.entity.Schedule;
 import org.example.calendar_advanced.domain.user.entity.User;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Getter
+@NoArgsConstructor
 public class Comment {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
@@ -35,6 +38,10 @@ public class Comment {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updatedDate;
+
+    public Comment(String content){
+        this.content = content;
+    }
 
     public void setSchedule(Schedule schedule){
         this.schedule = schedule;
