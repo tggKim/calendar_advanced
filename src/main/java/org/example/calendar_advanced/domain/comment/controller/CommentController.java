@@ -31,6 +31,11 @@ public class CommentController {
         return new ResponseEntity<>(commentService.getAllComments(), HttpStatus.OK);
     }
 
+    @GetMapping("/{commentId}")
+    public ResponseEntity<CommentResponseDto> getCommentById(@PathVariable("commentId") Long commentId){
+        return new ResponseEntity<>(commentService.getCommentById(commentId), HttpStatus.OK);
+    }
+
     private Long getUserIdBySession(HttpServletRequest httpServletRequest){
         HttpSession session = httpServletRequest.getSession();
         Long userId = null;
