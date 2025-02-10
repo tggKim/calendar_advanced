@@ -32,6 +32,15 @@ public class ScheduleFilter implements Filter {
             }
         }
 
+        if(!strs[strs.length-1].equals("schedules")){
+            if(method.equals("PATCH") || method.equals("POST")){
+                HttpSession session = httpServletRequest.getSession(false);
+                if(checkSession(session, httpServletResponse)){
+                    return;
+                }
+            }
+        }
+
         filterChain.doFilter(servletRequest, servletResponse);
 
     }
@@ -58,4 +67,5 @@ public class ScheduleFilter implements Filter {
 
         return false;
     }
+
 }

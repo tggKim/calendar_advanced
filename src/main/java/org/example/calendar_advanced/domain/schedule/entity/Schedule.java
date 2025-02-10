@@ -57,4 +57,11 @@ public class Schedule {
         comments.add(comment);
     }
 
+    public void updateTitle(String title){
+        this.title = title;
+    }
+
+    public void updateTodo(String todo){
+        this.todo = todo;
+    }
 }

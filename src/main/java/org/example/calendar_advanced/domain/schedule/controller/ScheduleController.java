@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleSaveRequestDto;
+import org.example.calendar_advanced.domain.schedule.dto.ScheduleUpdateRequestDto;
 import org.example.calendar_advanced.domain.schedule.repository.ScheduleRepository;
 import org.example.calendar_advanced.domain.schedule.service.ScheduleService;
 import org.springframework.http.HttpStatus;
@@ -45,4 +46,15 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.getScheduleById(scheduleId), HttpStatus.OK);
     }
 
+    @PatchMapping("/{scheduleId}")
+    public ResponseEntity<ScheduleResponseDto> updateSchedule(@PathVariable("scheduleId") Long scheduleId, @Valid @RequestBody ScheduleUpdateRequestDto scheduleUpdateRequestDto, HttpServletRequest httpServletRequest){
+
+        HttpSession session = httpServletRequest.getSession();
+        Long userId = null;
+        if(session != null && session.getAttribute("userId") != null){
+            userId = (Long) session.getAttribute("userId");
+        }
+
+        return new ResponseEntity<>(scheduleService.updateSchedule(scheduleId, userId, scheduleUpdateRequestDto), HttpStatus.OK);
+    }
 }
