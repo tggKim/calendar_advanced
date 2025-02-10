@@ -12,6 +12,7 @@ public enum ErrorCode {
 
     // 403
     USER_ACCESS_DENIED("유저에 대한 접근 권한이 없습니다.", HttpStatus.FORBIDDEN),
+    SCHEDULE_ACCESS_DENIED("일정에 대한 접근 권한이 없습니다.", HttpStatus.FORBIDDEN),
 
     // 404 에러
     SCHEDULE_NOT_FOUND("scheduleId에 해당하는 일정이 없습니다.", HttpStatus.NOT_FOUND),

@@ -14,6 +14,9 @@ import java.util.Optional;
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
+    @Query("SELECT u.userId FROM Schedule s JOIN s.user u WHERE s.scheduleId = :scheduleId")
+    Optional<String> getUserIdByScheduleId(@Param("scheduleId") Long scheduleId);
+
     @Query("SELECT new org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto(s.scheduleId, u.userId, u.username, s.title, s.todo, s.createdDate, s.updatedDate)  FROM Schedule s JOIN s.user u")
     List<ScheduleResponseDto> getAllSchedules();
 
