@@ -1,5 +1,6 @@
 package org.example.calendar_advanced.global.config;
 
+import org.example.calendar_advanced.global.filter.CommentFilter;
 import org.example.calendar_advanced.global.filter.ScheduleFilter;
 import org.example.calendar_advanced.global.filter.UserFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -24,6 +25,15 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean(new ScheduleFilter());
         registrationBean.setOrder(1);
         registrationBean.addUrlPatterns("/api/schedules/*");
+
+        return registrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean commentFilter(){
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new CommentFilter());
+        registrationBean.setOrder(1);
+        registrationBean.addUrlPatterns("/api/comments/*");
 
         return registrationBean;
     }
