@@ -687,3 +687,111 @@
 - 404 Not Found
 - 존재하지 않는 일정에 대해 요청하면 에러가 발생합니다.
 </details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 일정 수정
+
+**/api/schedules/{scheduleId} PATCH 요청**
+
+<details>
+<summary>Request</summary>
+
+```
+{
+    "title" : "dddd",
+    "todo" : ""
+}
+```
+- title -> 제목
+- todo -> 할 일
+    
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+```
+{
+    "scheduleId": 3,
+    "userId": 2,
+    "username": "tgghuhu",
+    "title": "제목 수정",
+    "todo": "할 일 수정",
+    "createdTime": "2025-02-10 09:56:45",
+    "updatedTime": "2025-02-10 09:56:59"
+}
+```
+- scheduleId -> 일정 식별자
+- userId -> 유저 식별자
+- username -> 유저 이름
+- title -> 제목
+- todo -> 할 일
+- createDate -> 유저 생성일
+- updatedDate -> 유저 수정일
+
+실패
+```
+{
+    "message": "로그인이 필요합니다."
+}
+```
+- 401 Unauthorized
+- 로그인하지 않으면 수정 요청을 할 수 없습니다.
+
+```
+{
+    "message": "유저에 대한 접근 권한이 없습니다."
+}
+```
+- 403 Forbidden
+- 로그인한 유저가 아닌 유저에 대한 수정 요청을 할 수 없습니다.
+
+```
+{
+    "title": "제목은 필수 입력 값 입니다."
+}
+```
+- 400 Bad Request
+- title은 필수로 입력 해야됩니다.
+
+```
+{
+    "todo": "할 일은 필수 입력 값 입니다."
+}
+```
+- 400 Bad Request
+- todo는 필수로 입력 해야됩니다.
+
+```
+{
+    "message": "비밀번호가 잘못되었습니다."
+}
+```
+- 401 Unauthorized
+- 비밀번호가 틀리면 오류가 발생합니다.
+</details>
