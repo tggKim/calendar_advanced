@@ -1087,5 +1087,76 @@
 ```
 []
 ```
-- 댓글 존재하지 않으면 빈 리스트를 반환합니다.
+- 댓글이이 존재하지 않으면 빈 리스트를 반환합니다.
 </details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 댓글 단건 조회
+
+**/api/comments/{commentId} GET 요청**
+
+<details>
+<summary>Request</summary>
+
+- /api/comments/{commentId} GET 요청하면 됩니다.
+    
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+```
+{
+    "commentId": 1,
+    "scheduleId": 1,
+    "userId": 1,
+    "username": "tgghuhu",
+    "content": "댓글 내용",
+    "createdTime": "2025-02-10 17:38:36",
+    "updatedTime": "2025-02-10 17:38:36"
+}
+```
+- commentId -> 댓글 식별자
+- scheduleId -> 일정 식별자
+- userId -> 유저 식별자
+- username -> 유저 이름
+- content -> 댓글 내용
+- createdDate -> 유저 생성일
+- updatedDate -> 유저 수정일
+
+실패
+```
+{
+    "message": "commentId에 해당하는 유저가 없습니다."
+}
+```
+- 404 Not Found
+- 존재하지 않는 댓글에 대해 요청하면 에러가 발생합니다.
+</details>
+
