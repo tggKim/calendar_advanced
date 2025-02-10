@@ -64,7 +64,7 @@ public class ScheduleService {
 
         validateLoginUser(scheduleId,  sessionUserId);
 
-        validatePassword(scheduleId, scheduleUpdateRequestDto.getPassword());
+        validatePassword(sessionUserId, scheduleUpdateRequestDto.getPassword());
 
         // 일정을 업데이트
         Schedule findSchedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));

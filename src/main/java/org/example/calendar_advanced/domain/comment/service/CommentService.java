@@ -68,7 +68,7 @@ public class CommentService {
 
         validateLoginUser(commentId,  sessionUserId);
 
-        validatePassword(commentId, commentUpdateRequestDto.getPassword());
+        validatePassword(sessionUserId, commentUpdateRequestDto.getPassword());
 
         // 댓글을 업데이트
         Comment findComment = commentRepository.findById(commentId).orElseThrow(() -> new Exception404(ErrorCode.COMMENT_NOT_FOUND));
