@@ -1178,23 +1178,21 @@
 
 
 
-## 일정 수정
+## 댓글 수정
 
-**/api/schedules/{scheduleId} PATCH 요청**
+**/api/comments/{commentId} PATCH 요청**
 
 <details>
 <summary>Request</summary>
 
 ```
 {
-    "title" : "제목 수정",
-    "todo" : "할 일 수정",
+    "content" : "댓글 수정",
     "password" : "1234"
 }
 ```
-- title -> 제목
-- todo -> 할 일
-- password -> 비밀번호호
+- content -> 댓글 내용
+- password -> 비밀번호
     
 </details>
 
@@ -1204,21 +1202,21 @@
 성공
 ```
 {
-    "scheduleId": 3,
-    "userId": 2,
+    "commentId": 2,
+    "scheduleId": 1,
+    "userId": 1,
     "username": "tgghuhu",
-    "title": "제목 수정",
-    "todo": "할 일 수정",
-    "createdTime": "2025-02-10 09:56:45",
-    "updatedTime": "2025-02-10 09:56:59"
+    "content": "댓글 수정",
+    "createdTime": "2025-02-10 20:58:10",
+    "updatedTime": "2025-02-10 20:58:12"
 }
 ```
+- commentId -> 댓글 식별자
 - scheduleId -> 일정 식별자
 - userId -> 유저 식별자
 - username -> 유저 이름
-- title -> 제목
-- todo -> 할 일
-- createDate -> 유저 생성일
+- content -> 댓글 내용
+- createdDate -> 유저 생성일
 - updatedDate -> 유저 수정일
 
 실패
@@ -1232,35 +1230,27 @@
 
 ```
 {
-    "message": "일정에 대한 접근 권한이 없습니다."
+    "message": "댓글에 대한 접근 권한이 없습니다."
 }
 ```
 - 403 Forbidden
-- 로그인한 유저의 일정에 대해서만 수정 요청을 할 수 있습니다.
+- 로그인한 유저의 댓글에 대해서만 수정 요청을 할 수 있습니다.
 
 ```
 {
-    "message": "scheduleId에 해당하는 일정이 없습니다."
+    "message": "commentId에 해당하는 유저가 없습니다."
 }
 ```
 - 404 Not Found
-- 존재하지 않는 일정에 대해 요청하면 에러가 발생합니다.
+- 존재하지 않는 댓에 대해 요청하면 에러가 발생합니다.
 
 ```
 {
-    "title": "제목은 필수 입력 값 입니다."
+    "content": "댓글 내용은 필수 입력 값 입니다."
 }
 ```
 - 400 Bad Request
-- title은 필수로 입력 해야됩니다.
-
-```
-{
-    "todo": "할 일은 필수 입력 값 입니다."
-}
-```
-- 400 Bad Request
-- todo는 필수로 입력 해야됩니다.
+- content 필수로 입력 해야됩니다.
 
 ```
 {
