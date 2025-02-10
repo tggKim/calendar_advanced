@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.calendar_advanced.domain.schedule.dto.ScheduleDeleteRequestDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleSaveRequestDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleUpdateRequestDto;
@@ -27,11 +28,8 @@ public class ScheduleController {
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> saveSchedule(@Valid @RequestBody ScheduleSaveRequestDto scheduleSaveRequestDto, HttpServletRequest httpServletRequest){
 
-        HttpSession session = httpServletRequest.getSession();
-        Long userId = null;
-        if(session != null && session.getAttribute("userId") != null){
-            userId = (Long) session.getAttribute("userId");
-        }
+        Long userId = getUserIdBySession(httpServletRequest);
+
         return new ResponseEntity<>(scheduleService.saveSchedule(scheduleSaveRequestDto, userId), HttpStatus.CREATED);
 
     }
@@ -49,12 +47,27 @@ public class ScheduleController {
     @PatchMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> updateSchedule(@PathVariable("scheduleId") Long scheduleId, @Valid @RequestBody ScheduleUpdateRequestDto scheduleUpdateRequestDto, HttpServletRequest httpServletRequest){
 
+        Long userId = getUserIdBySession(httpServletRequest);
+
+        return new ResponseEntity<>(scheduleService.updateSchedule(scheduleId, userId, scheduleUpdateRequestDto), HttpStatus.OK);
+    }
+
+    @PostMapping("/{scheduleId}")
+    public ResponseEntity<Void> deleteSchedule(@PathVariable("scheduleId") Long scheduleId, @Valid @RequestBody ScheduleDeleteRequestDto scheduleDeleteRequestDto, HttpServletRequest httpServletRequest){
+
+        Long userId = getUserIdBySession(httpServletRequest);
+
+        scheduleService.deleteSchedule(scheduleId, userId, scheduleDeleteRequestDto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private Long getUserIdBySession(HttpServletRequest httpServletRequest){
         HttpSession session = httpServletRequest.getSession();
         Long userId = null;
         if(session != null && session.getAttribute("userId") != null){
             userId = (Long) session.getAttribute("userId");
         }
-
-        return new ResponseEntity<>(scheduleService.updateSchedule(scheduleId, userId, scheduleUpdateRequestDto), HttpStatus.OK);
+        return userId;
     }
 }

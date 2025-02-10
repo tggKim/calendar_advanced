@@ -1,6 +1,7 @@
 package org.example.calendar_advanced.domain.schedule.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.calendar_advanced.domain.schedule.dto.ScheduleDeleteRequestDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleSaveRequestDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleUpdateRequestDto;
@@ -61,17 +62,7 @@ public class ScheduleService {
     @Transactional
     public ScheduleResponseDto updateSchedule(Long scheduleId, Long userId, ScheduleUpdateRequestDto scheduleUpdateRequestDto){
 
-        // 현재 로그인한 유저의 일정인지 확인
-        String findUserId = scheduleRepository.getUserIdByScheduleId(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
-        if(userId != Long.parseLong(findUserId)){
-            throw new Exception403(ErrorCode.SCHEDULE_ACCESS_DENIED);
-        }
-
-        // 유저의 비밀번홀 검사
-        String findPassword = userRepository.findPasswordByUserId(userId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
-        if(!passwordEncoder.matches(scheduleUpdateRequestDto.getPassword(), findPassword)){
-            throw new Exception401(ErrorCode.INVALID_PASSWORD);
-        }
+        validateLoginUserAndPassword(scheduleId, userId, scheduleUpdateRequestDto.getPassword());
 
         // 일정을 업데이트
         Schedule findSchedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
@@ -81,5 +72,28 @@ public class ScheduleService {
         // 일정을 찾아서 리턴
         return scheduleRepository.getScheduleById(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
 
+    }
+
+    @Transactional
+    public void deleteSchedule(Long scheduleId, Long userId, ScheduleDeleteRequestDto scheduleDeleteRequestDto){
+
+        validateLoginUserAndPassword(scheduleId, userId, scheduleDeleteRequestDto.getPassword());
+
+        scheduleRepository.deleteById(scheduleId);
+
+    }
+
+    private void validateLoginUserAndPassword(Long scheduleId, Long userId, String rawPassword){
+        // 현재 로그인한 유저의 일정인지 확인
+        String findUserId = scheduleRepository.getUserIdByScheduleId(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
+        if(userId != Long.parseLong(findUserId)){
+            throw new Exception403(ErrorCode.SCHEDULE_ACCESS_DENIED);
+        }
+
+        // 유저의 비밀번홀 검사
+        String findPassword = userRepository.findPasswordByUserId(userId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
+        if(!passwordEncoder.matches(rawPassword, findPassword)){
+            throw new Exception401(ErrorCode.INVALID_PASSWORD);
+        }
     }
 }
