@@ -641,11 +641,11 @@
 - createDate -> 유저 생성일
 - updatedDate -> 유저 수정일
 
-유저가 없을 경우
+일정이 없을 경우
 ```
 []
 ```
-- 유저가 존재하지 않으면 빈 리스트를 반환합니다.
+- 일정이이 존재하지 않으면 빈 리스트를 반환합니다.
 </details>
 
 
@@ -909,3 +909,254 @@
 - 401 Unauthorized
 - 비밀번호가 틀리면 오류가 발생합니다.
 </details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 댓글 등록
+
+**/api/comments POST 요청**
+
+<details>
+<summary>Request</summary>
+  
+```
+{
+    "content" : "댓글 내용",
+    "scheduleId" : "1"
+}
+```
+- content -> 댓글 내용
+- scheduleId -> 일정 식별자
+
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+```
+{
+    "commentId": 4,
+    "scheduleId": 1,
+    "userId": 1,
+    "username": "tgghuhu",
+    "content": "댓글 내용",
+    "createdTime": "2025-02-10 16:49:10",
+    "updatedTime": "2025-02-10 16:49:10"
+}
+```
+- commentId -> 댓글 식별자
+- scheduleId -> 일정 식별자
+- userId -> 유저 식별자
+- username -> 유저 이름
+- content -> 댓글 내용
+- createdDate -> 유저 생성일
+- updatedDate -> 유저 수정일
+
+실패
+```
+{
+    "message": "로그인이 필요합니다."
+}
+```
+- 401 Unauthorized
+- 로그인하지 않으면 일정 등록을 할 수 없습니다.
+
+```
+{
+    "message": "scheduleId에 해당하는 일정이 없습니다."
+}
+```
+- 404 Not Found
+- 존재하지 않는 일정에 대해 요청하면 에러가 발생합니다.
+
+```
+{
+    "content": "댓글 내용은 필수 입력 값 입니다."
+}
+```
+- 400 Bad Request
+- content 필수로 입력 해야됩니다.
+
+```
+{
+    "scheduleId": "scheduleId는 필수 입력 값 입니다."
+}
+```
+- 400 Bad Request
+- scheduleId는 필수로 입력 해야됩니다.
+</details>
+
+
+
+
+
+
+
+
+
+
+## 일정 목록 조회
+
+**/api/comments GET 요청**
+
+<details>
+<summary>Request</summary>
+
+- api/comments GET 요청하면 됩니다.
+    
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+```
+[
+    {
+        "commentId": 1,
+        "scheduleId": 1,
+        "userId": 1,
+        "username": "tgghuhu",
+        "content": "댓글 내용",
+        "createdTime": "2025-02-10 16:36:30",
+        "updatedTime": "2025-02-10 16:36:30"
+    },
+    {
+        "commentId": 2,
+        "scheduleId": 1,
+        "userId": 1,
+        "username": "tgghuhu",
+        "content": "댓글 내용",
+        "createdTime": "2025-02-10 16:36:30",
+        "updatedTime": "2025-02-10 16:36:30"
+    },
+    {
+        "commentId": 3,
+        "scheduleId": 1,
+        "userId": 1,
+        "username": "tgghuhu",
+        "content": "댓글 내용",
+        "createdTime": "2025-02-10 16:36:31",
+        "updatedTime": "2025-02-10 16:36:31"
+    },
+    {
+        "commentId": 4,
+        "scheduleId": 1,
+        "userId": 1,
+        "username": "tgghuhu",
+        "content": "댓글 내용",
+        "createdTime": "2025-02-10 16:49:10",
+        "updatedTime": "2025-02-10 16:49:10"
+    }
+]
+```
+- commentId -> 댓글 식별자
+- scheduleId -> 일정 식별자
+- userId -> 유저 식별자
+- username -> 유저 이름
+- content -> 댓글 내용
+- createdDate -> 유저 생성일
+- updatedDate -> 유저 수정일
+
+댓글이 없을 경우
+```
+[]
+```
+- 댓글이이 존재하지 않으면 빈 리스트를 반환합니다.
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 댓글 단건 조회
+
+**/api/comments/{commentId} GET 요청**
+
+<details>
+<summary>Request</summary>
+
+- /api/comments/{commentId} GET 요청하면 됩니다.
+    
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+```
+{
+    "commentId": 1,
+    "scheduleId": 1,
+    "userId": 1,
+    "username": "tgghuhu",
+    "content": "댓글 내용",
+    "createdTime": "2025-02-10 17:38:36",
+    "updatedTime": "2025-02-10 17:38:36"
+}
+```
+- commentId -> 댓글 식별자
+- scheduleId -> 일정 식별자
+- userId -> 유저 식별자
+- username -> 유저 이름
+- content -> 댓글 내용
+- createdDate -> 유저 생성일
+- updatedDate -> 유저 수정일
+
+실패
+```
+{
+    "message": "commentId에 해당하는 유저가 없습니다."
+}
+```
+- 404 Not Found
+- 존재하지 않는 댓글에 대해 요청하면 에러가 발생합니다.
+</details>
+
