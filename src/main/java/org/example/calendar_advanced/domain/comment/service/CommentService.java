@@ -1,11 +1,13 @@
 package org.example.calendar_advanced.domain.comment.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.calendar_advanced.domain.comment.dto.CommentDeleteRequestDto;
 import org.example.calendar_advanced.domain.comment.dto.CommentResponseDto;
 import org.example.calendar_advanced.domain.comment.dto.CommentSaveRequestDto;
 import org.example.calendar_advanced.domain.comment.dto.CommentUpdateRequestDto;
 import org.example.calendar_advanced.domain.comment.entity.Comment;
 import org.example.calendar_advanced.domain.comment.repository.CommentRepository;
+import org.example.calendar_advanced.domain.schedule.dto.ScheduleDeleteRequestDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleUpdateRequestDto;
 import org.example.calendar_advanced.domain.schedule.entity.Schedule;
@@ -76,6 +78,17 @@ public class CommentService {
 
         // 댓글을 찾아서 리턴
         return commentRepository.getCommentById(commentId).orElseThrow(() -> new Exception404(ErrorCode.COMMENT_NOT_FOUND));
+
+    }
+
+    @Transactional
+    public void deleteComment(Long commentId, Long sessionUserId, CommentDeleteRequestDto commentDeleteRequestDto){
+
+        validateLoginUser(commentId,  sessionUserId);
+
+        validatePassword(sessionUserId, commentDeleteRequestDto.getPassword());
+
+        commentRepository.deleteById(commentId);
 
     }
 
