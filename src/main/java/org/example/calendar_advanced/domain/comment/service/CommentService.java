@@ -13,6 +13,8 @@ import org.example.calendar_advanced.global.error.ErrorCode;
 import org.example.calendar_advanced.global.error.exception.Exception404;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CommentService {
@@ -40,5 +42,9 @@ public class CommentService {
                 .createdTime(savedComment.getCreatedDate())
                 .updatedTime(savedComment.getUpdatedDate())
                 .build();
+    }
+
+    public List<CommentResponseDto> getAllComments(){
+        return commentRepository.getAllComments();
     }
 }
