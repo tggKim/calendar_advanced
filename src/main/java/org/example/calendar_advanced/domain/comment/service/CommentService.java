@@ -47,4 +47,8 @@ public class CommentService {
     public List<CommentResponseDto> getAllComments(){
         return commentRepository.getAllComments();
     }
+
+    public CommentResponseDto getCommentById(Long commentId){
+        return commentRepository.getCommentById(commentId).orElseThrow(() -> new Exception404(ErrorCode.COMMENT_NOT_FOUND));
+    }
 }
