@@ -1020,7 +1020,7 @@
 
 
 
-## 일정 목록 조회
+## 댓글 목록 조회
 
 **/api/comments GET 요청**
 
@@ -1160,3 +1160,196 @@
 - 존재하지 않는 댓글에 대해 요청하면 에러가 발생합니다.
 </details>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 댓글 수정
+
+**/api/comments/{commentId} PATCH 요청**
+
+<details>
+<summary>Request</summary>
+
+```
+{
+    "content" : "댓글 수정",
+    "password" : "1234"
+}
+```
+- content -> 댓글 내용
+- password -> 비밀번호
+    
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+```
+{
+    "commentId": 2,
+    "scheduleId": 1,
+    "userId": 1,
+    "username": "tgghuhu",
+    "content": "댓글 수정",
+    "createdTime": "2025-02-10 20:58:10",
+    "updatedTime": "2025-02-10 20:58:12"
+}
+```
+- commentId -> 댓글 식별자
+- scheduleId -> 일정 식별자
+- userId -> 유저 식별자
+- username -> 유저 이름
+- content -> 댓글 내용
+- createdDate -> 유저 생성일
+- updatedDate -> 유저 수정일
+
+실패
+```
+{
+    "message": "로그인이 필요합니다."
+}
+```
+- 401 Unauthorized
+- 로그인하지 않으면 수정 요청을 할 수 없습니다.
+
+```
+{
+    "message": "댓글에 대한 접근 권한이 없습니다."
+}
+```
+- 403 Forbidden
+- 로그인한 유저의 댓글에 대해서만 수정 요청을 할 수 있습니다.
+
+```
+{
+    "message": "commentId에 해당하는 유저가 없습니다."
+}
+```
+- 404 Not Found
+- 존재하지 않는 댓글에 대해 요청하면 에러가 발생합니다.
+
+```
+{
+    "content": "댓글 내용은 필수 입력 값 입니다."
+}
+```
+- 400 Bad Request
+- content 필수로 입력 해야됩니다.
+
+```
+{
+    "password": "비밀번호는 필수 입력 값입니다,"
+}
+```
+- 400 Bad Request
+- password는 필수로 입력 해야됩니다.
+
+```
+{
+    "message": "비밀번호가 잘못되었습니다."
+}
+```
+- 401 Unauthorized
+- 비밀번호가 틀리면 오류가 발생합니다.
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 댓글 삭제
+
+**/api/comments/{commentId} POST 요청**
+
+<details>
+<summary>Request</summary>
+
+```
+{
+    "password" : "1234"
+}
+```
+- password -> 비밀번호
+    
+</details>
+
+<details>
+<summary>Response</summary>
+  
+성공
+- 빈 body를 리턴합니다.
+
+실패
+```
+{
+    "message": "로그인이 필요합니다."
+}
+```
+- 401 Unauthorized
+- 로그인하지 않으면 삭제 요청을 할 수 없습니다.
+
+```
+{
+    "message": "일정에 대한 접근 권한이 없습니다."
+}
+```
+- 403 Forbidden
+- 로그인한 유저의 일정에 대해서만 삭 요청을 할 수 있습니다.
+
+```
+{
+    "message": "commentId에 해당하는 유저가 없습니다."
+}
+```
+- 404 Not Found
+- 존재하지 않는 댓글에 대해 요청하면 에러가 발생합니다.
+
+```
+{
+    "password": "비밀번호는 필수 입력 값입니다,"
+}
+```
+- 400 Bad Request
+- password는 필수로 입력 해야됩니다.
+
+```
+{
+    "message": "비밀번호가 잘못되었습니다."
+}
+```
+- 401 Unauthorized
+- 비밀번호가 틀리면 오류가 발생합니다.
+</details>

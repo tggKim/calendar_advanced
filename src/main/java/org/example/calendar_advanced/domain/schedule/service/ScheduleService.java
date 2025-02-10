@@ -81,7 +81,7 @@ public class ScheduleService {
 
         validateLoginUser(scheduleId,  sessionUserId);
 
-        validatePassword(scheduleId, scheduleDeleteRequestDto.getPassword());
+        validatePassword(sessionUserId, scheduleDeleteRequestDto.getPassword());
 
         scheduleRepository.deleteById(scheduleId);
 

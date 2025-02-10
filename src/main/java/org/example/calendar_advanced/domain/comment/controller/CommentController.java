@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.calendar_advanced.domain.comment.dto.CommentDeleteRequestDto;
 import org.example.calendar_advanced.domain.comment.dto.CommentResponseDto;
 import org.example.calendar_advanced.domain.comment.dto.CommentSaveRequestDto;
 import org.example.calendar_advanced.domain.comment.dto.CommentUpdateRequestDto;
@@ -45,6 +46,16 @@ public class CommentController {
         Long sessionUserId = getUserIdBySession(httpServletRequest);
 
         return new ResponseEntity<>(commentService.updateComment(commentId, sessionUserId, commentUpdateRequestDto), HttpStatus.OK);
+    }
+
+    @PostMapping("/{commentId}")
+    public ResponseEntity<CommentResponseDto> deleteComment(@PathVariable("commentId") Long commentId, @Valid @RequestBody CommentDeleteRequestDto commentDeleteRequestDto, HttpServletRequest httpServletRequest){
+
+        Long sessionUserId = getUserIdBySession(httpServletRequest);
+
+        commentService.deleteComment(commentId, sessionUserId, commentDeleteRequestDto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     private Long getUserIdBySession(HttpServletRequest httpServletRequest){
