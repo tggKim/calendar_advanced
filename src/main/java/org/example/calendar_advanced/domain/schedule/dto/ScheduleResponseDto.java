@@ -14,18 +14,20 @@ public class ScheduleResponseDto {
     private String username;
     private String title;
     private String todo;
+    private Long commentCount;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedTime;
 
     @Builder
-    public ScheduleResponseDto(Long scheduleId, Long userId, String username, String title, String todo, LocalDateTime createdTime, LocalDateTime updatedTime){
+    public ScheduleResponseDto(Long scheduleId, Long userId, String username, String title, String todo, Long commentCount, LocalDateTime createdTime, LocalDateTime updatedTime){
         this.scheduleId = scheduleId;
         this.userId = userId;
         this.username = username;
         this.title = title;
         this.todo = todo;
+        this.commentCount = commentCount;
         this.createdTime = createdTime;
         this.updatedTime = updatedTime;
     }

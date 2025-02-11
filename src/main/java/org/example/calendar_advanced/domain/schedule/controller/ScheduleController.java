@@ -10,6 +10,9 @@ import org.example.calendar_advanced.domain.schedule.dto.ScheduleSaveRequestDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleUpdateRequestDto;
 import org.example.calendar_advanced.domain.schedule.repository.ScheduleRepository;
 import org.example.calendar_advanced.domain.schedule.service.ScheduleService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -35,8 +38,8 @@ public class ScheduleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ScheduleResponseDto>> getAllSchedules(){
-        return new ResponseEntity<>(scheduleService.getAllSchedules(), HttpStatus.OK);
+    public ResponseEntity<List<ScheduleResponseDto>> getAllSchedules(@PageableDefault(page = 0, size = 10, sort = "scheduleId", direction = Sort.Direction.ASC) Pageable pageable){
+        return new ResponseEntity<>(scheduleService.getAllSchedules(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/{scheduleId}")

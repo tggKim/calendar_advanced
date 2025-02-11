@@ -15,6 +15,7 @@ import org.example.calendar_advanced.global.error.ErrorCode;
 import org.example.calendar_advanced.global.error.exception.Exception401;
 import org.example.calendar_advanced.global.error.exception.Exception403;
 import org.example.calendar_advanced.global.error.exception.Exception404;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,14 +45,15 @@ public class ScheduleService {
                 .username(findUser.getUsername())
                 .title(saveSchedule.getTitle())
                 .todo(saveSchedule.getTodo())
+                .commentCount(0L)
                 .createdTime(saveSchedule.getCreatedDate())
                 .updatedTime(saveSchedule.getUpdatedDate())
                 .build();
     }
 
     @Transactional
-    public List<ScheduleResponseDto> getAllSchedules(){
-        return scheduleRepository.getAllSchedules();
+    public List<ScheduleResponseDto> getAllSchedules(Pageable pageable){
+        return scheduleRepository.getAllSchedules(pageable);
     }
 
     @Transactional
