@@ -28,6 +28,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
             " FROM Schedule s" +
             " INNER JOIN s.user u" +
             " LEFT JOIN s.comments c" +
+            " WHERE s.scheduleId = :scheduleId" +
             " GROUP BY s.scheduleId, u.userId, u.username, s.title, s.todo, s.createdDate, s.updatedDate")
     Optional<ScheduleResponseDto> getScheduleById(@Param("scheduleId") Long scheduleId);
 }
