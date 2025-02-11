@@ -535,13 +535,14 @@
 성공
 ```
 {
-    "scheduleId": 3,
+    "scheduleId": 1,
     "userId": 1,
-    "username": "tgg",
+    "username": "tgghuhu",
     "title": "제목",
     "todo": "할 일",
-    "createdTime": "2025-02-08 16:49:51",
-    "updatedTime": "2025-02-08 16:49:51"
+    "commentCount": 0,
+    "createdTime": "2025-02-11 19:37:46",
+    "updatedTime": "2025-02-11 19:37:46"
 }
 ```
 - scheduleId -> 일정 식별자
@@ -549,6 +550,7 @@
 - username -> 유저 이름
 - title -> 제목
 - todo -> 할 일
+- commentCount -> 댓글 갯수
 - createDate -> 유저 생성일
 - updatedDate -> 유저 수정일
 
@@ -607,29 +609,32 @@
     {
         "scheduleId": 1,
         "userId": 1,
-        "username": "xx",
+        "username": "tgghuhu",
         "title": "제목",
         "todo": "할 일",
-        "createdTime": "2025-02-09 19:27:54",
-        "updatedTime": "2025-02-09 19:27:54"
+        "commentCount": 2,
+        "createdTime": "2025-02-11 19:37:46",
+        "updatedTime": "2025-02-11 19:37:46"
     },
     {
         "scheduleId": 2,
         "userId": 1,
-        "username": "xx",
+        "username": "tgghuhu",
         "title": "제목",
         "todo": "할 일",
-        "createdTime": "2025-02-09 19:27:56",
-        "updatedTime": "2025-02-09 19:27:56"
+        "commentCount": 1,
+        "createdTime": "2025-02-11 19:39:51",
+        "updatedTime": "2025-02-11 19:39:51"
     },
     {
         "scheduleId": 3,
         "userId": 1,
-        "username": "xx",
+        "username": "tgghuhu",
         "title": "제목",
         "todo": "할 일",
-        "createdTime": "2025-02-09 19:27:57",
-        "updatedTime": "2025-02-09 19:27:57"
+        "commentCount": 0,
+        "createdTime": "2025-02-11 19:39:52",
+        "updatedTime": "2025-02-11 19:39:52"
     }
 ]
 ```
@@ -638,6 +643,7 @@
 - username -> 유저 이름
 - title -> 제목
 - todo -> 할 일
+- commentCount -> 댓글 갯수
 - createDate -> 유저 생성일
 - updatedDate -> 유저 수정일
 
@@ -682,8 +688,9 @@
     "username": "tgghuhu",
     "title": "제목",
     "todo": "할 일",
-    "createdTime": "2025-02-09 21:01:35",
-    "updatedTime": "2025-02-09 21:01:35"
+    "commentCount": 2,
+    "createdTime": "2025-02-11 19:37:46",
+    "updatedTime": "2025-02-11 19:37:46"
 }
 ```
 - scheduleId -> 일정 식별자
@@ -691,6 +698,7 @@
 - username -> 유저 이름
 - title -> 제목
 - todo -> 할 일
+- commentCount -> 댓글 갯수
 - createDate -> 유저 생성일
 - updatedDate -> 유저 수정일
 
@@ -755,13 +763,14 @@
 성공
 ```
 {
-    "scheduleId": 3,
-    "userId": 2,
+    "scheduleId": 1,
+    "userId": 1,
     "username": "tgghuhu",
     "title": "제목 수정",
     "todo": "할 일 수정",
-    "createdTime": "2025-02-10 09:56:45",
-    "updatedTime": "2025-02-10 09:56:59"
+    "commentCount": 2,
+    "createdTime": "2025-02-11 19:37:46",
+    "updatedTime": "2025-02-11 19:41:12"
 }
 ```
 - scheduleId -> 일정 식별자
@@ -769,6 +778,7 @@
 - username -> 유저 이름
 - title -> 제목
 - todo -> 할 일
+- commentCount -> 댓글 갯수
 - createDate -> 유저 생성일
 - updatedDate -> 유저 수정일
 
