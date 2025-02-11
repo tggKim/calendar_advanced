@@ -44,6 +44,7 @@ public class ScheduleService {
                 .username(findUser.getUsername())
                 .title(saveSchedule.getTitle())
                 .todo(saveSchedule.getTodo())
+                .commentCount(0L)
                 .createdTime(saveSchedule.getCreatedDate())
                 .updatedTime(saveSchedule.getUpdatedDate())
                 .build();
