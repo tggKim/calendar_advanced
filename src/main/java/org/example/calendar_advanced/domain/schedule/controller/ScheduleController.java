@@ -39,7 +39,7 @@ public class ScheduleController {
 
     @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> getAllSchedules(@PageableDefault(page = 0, size = 10, sort = "scheduleId", direction = Sort.Direction.ASC) Pageable pageable){
-        return new ResponseEntity<>(scheduleService.getAllSchedules(), HttpStatus.OK);
+        return new ResponseEntity<>(scheduleService.getAllSchedules(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/{scheduleId}")

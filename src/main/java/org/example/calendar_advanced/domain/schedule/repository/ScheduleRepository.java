@@ -2,6 +2,7 @@ package org.example.calendar_advanced.domain.schedule.repository;
 
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto;
 import org.example.calendar_advanced.domain.schedule.entity.Schedule;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,7 +23,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
             " INNER JOIN s.user u" +
             " LEFT JOIN s.comments c" +
             " GROUP BY s.scheduleId, u.userId, u.username, s.title, s.todo, s.createdDate, s.updatedDate")
-    List<ScheduleResponseDto> getAllSchedules();
+    List<ScheduleResponseDto> getAllSchedules(Pageable pageable);
 
     @Query("SELECT new org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto(s.scheduleId, u.userId, u.username, s.title, s.todo, COUNT(c.commentId), s.createdDate, s.updatedDate)" +
             " FROM Schedule s" +
