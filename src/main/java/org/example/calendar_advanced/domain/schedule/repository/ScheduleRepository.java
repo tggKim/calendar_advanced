@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,14 +15,14 @@ import java.util.Optional;
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
     @Query("SELECT u.userId FROM Schedule s JOIN s.user u WHERE s.scheduleId = :scheduleId")
-    Optional<String> getUserIdByScheduleId(@Param("scheduleId") Long scheduleId);
+    Optional<String> findUserIdByScheduleId(@Param("scheduleId") Long scheduleId);
 
     @Query("SELECT new org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto(s.scheduleId, u.userId, u.username, s.title, s.todo, COUNT(c.commentId), s.createdDate, s.updatedDate)" +
             " FROM Schedule s" +
             " INNER JOIN s.user u" +
             " LEFT JOIN s.comments c" +
             " GROUP BY s.scheduleId, u.userId, u.username, s.title, s.todo, s.createdDate, s.updatedDate")
-    List<ScheduleResponseDto> getAllSchedules(Pageable pageable);
+    List<ScheduleResponseDto> findAllSchedules(Pageable pageable);
 
     @Query("SELECT new org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto(s.scheduleId, u.userId, u.username, s.title, s.todo, COUNT(c.commentId), s.createdDate, s.updatedDate)" +
             " FROM Schedule s" +
@@ -31,5 +30,5 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
             " LEFT JOIN s.comments c" +
             " WHERE s.scheduleId = :scheduleId" +
             " GROUP BY s.scheduleId, u.userId, u.username, s.title, s.todo, s.createdDate, s.updatedDate")
-    Optional<ScheduleResponseDto> getScheduleById(@Param("scheduleId") Long scheduleId);
+    Optional<ScheduleResponseDto> findScheduleById(@Param("scheduleId") Long scheduleId);
 }

@@ -5,12 +5,11 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.example.calendar_advanced.domain.user.entity.User;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserSaveRequestDto {
+public class UserCreateRequestDto {
     @NotBlank(message = "이름은 필수 입력 값입니다.")
     private String username;
 

@@ -25,12 +25,12 @@ public class AuthController {
     @PostMapping("/api/login")
     public ResponseEntity<AuthResponseDto> login(@Valid @RequestBody AuthRequestDto loginRequestDto, HttpServletRequest httpServletRequest){
 
-        AuthResponseDto loginResponseDto = loginService.validateLoginAndReturnUserDto(loginRequestDto);
+        AuthResponseDto authResponseDto = loginService.validateLoginAndReturnUserDto(loginRequestDto);
 
         HttpSession session = httpServletRequest.getSession();
-        session.setAttribute("userId", loginResponseDto.getUserId());
+        session.setAttribute("userId", authResponseDto.getUserId());
 
-        return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(authResponseDto, HttpStatus.OK);
     }
 
     @PostMapping("/api/logout")

@@ -6,11 +6,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.calendar_advanced.domain.comment.dto.CommentDeleteRequestDto;
 import org.example.calendar_advanced.domain.comment.dto.CommentResponseDto;
-import org.example.calendar_advanced.domain.comment.dto.CommentSaveRequestDto;
+import org.example.calendar_advanced.domain.comment.dto.CommentCreateRequestDto;
 import org.example.calendar_advanced.domain.comment.dto.CommentUpdateRequestDto;
 import org.example.calendar_advanced.domain.comment.service.CommentService;
-import org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto;
-import org.example.calendar_advanced.domain.schedule.dto.ScheduleUpdateRequestDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,20 +22,20 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<CommentResponseDto> saveComment(@Valid @RequestBody CommentSaveRequestDto commentSaveRequestDto, HttpServletRequest httpServletRequest){
+    public ResponseEntity<CommentResponseDto> createComment(@Valid @RequestBody CommentCreateRequestDto commentCreateRequestDto, HttpServletRequest httpServletRequest){
         Long sessionUserId = getUserIdBySession(httpServletRequest);
 
-        return new ResponseEntity<>(commentService.saveComment(commentSaveRequestDto, sessionUserId), HttpStatus.CREATED);
+        return new ResponseEntity<>(commentService.createComment(commentCreateRequestDto, sessionUserId), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<CommentResponseDto>> getAllComments(){
-        return new ResponseEntity<>(commentService.getAllComments(), HttpStatus.OK);
+    public ResponseEntity<List<CommentResponseDto>> findAllComments(){
+        return new ResponseEntity<>(commentService.findAllComments(), HttpStatus.OK);
     }
 
     @GetMapping("/{commentId}")
-    public ResponseEntity<CommentResponseDto> getCommentById(@PathVariable("commentId") Long commentId){
-        return new ResponseEntity<>(commentService.getCommentById(commentId), HttpStatus.OK);
+    public ResponseEntity<CommentResponseDto> findCommentById(@PathVariable("commentId") Long commentId){
+        return new ResponseEntity<>(commentService.findCommentById(commentId), HttpStatus.OK);
     }
 
     @PatchMapping("/{commentId}")
