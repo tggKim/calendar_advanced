@@ -62,7 +62,7 @@ public class ScheduleController {
 
         scheduleService.deleteSchedule(scheduleId, sessionUserId, scheduleDeleteRequestDto);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     private Long getUserIdBySession(HttpServletRequest httpServletRequest){

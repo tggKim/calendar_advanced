@@ -55,7 +55,7 @@ public class CommentController {
 
         commentService.deleteComment(commentId, sessionUserId, commentDeleteRequestDto);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     private Long getUserIdBySession(HttpServletRequest httpServletRequest){
