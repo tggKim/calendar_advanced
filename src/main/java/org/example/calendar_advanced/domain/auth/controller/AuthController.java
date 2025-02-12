@@ -1,17 +1,14 @@
-package org.example.calendar_advanced.domain.login.controller;
+package org.example.calendar_advanced.domain.auth.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.Session;
-import org.example.calendar_advanced.domain.login.dto.LoginRequestDto;
-import org.example.calendar_advanced.domain.login.dto.LoginResponseDto;
-import org.example.calendar_advanced.domain.login.service.LoginService;
-import org.example.calendar_advanced.domain.user.dto.UserResponseDto;
+import org.example.calendar_advanced.domain.auth.dto.AuthRequestDto;
+import org.example.calendar_advanced.domain.auth.dto.AuthResponseDto;
+import org.example.calendar_advanced.domain.auth.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,19 +18,19 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-public class LoginController {
+public class AuthController {
 
-    private final LoginService loginService;
+    private final AuthService loginService;
 
     @PostMapping("/api/login")
-    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto, HttpServletRequest httpServletRequest){
+    public ResponseEntity<AuthResponseDto> login(@Valid @RequestBody AuthRequestDto loginRequestDto, HttpServletRequest httpServletRequest){
 
-        LoginResponseDto loginResponseDto = loginService.validateLoginAndReturnUserDto(loginRequestDto);
+        AuthResponseDto authResponseDto = loginService.validateLoginAndReturnUserDto(loginRequestDto);
 
         HttpSession session = httpServletRequest.getSession();
-        session.setAttribute("userId", loginResponseDto.getUserId());
+        session.setAttribute("userId", authResponseDto.getUserId());
 
-        return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(authResponseDto, HttpStatus.OK);
     }
 
     @PostMapping("/api/logout")

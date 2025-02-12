@@ -3,13 +3,10 @@ package org.example.calendar_advanced.domain.comment.service;
 import lombok.RequiredArgsConstructor;
 import org.example.calendar_advanced.domain.comment.dto.CommentDeleteRequestDto;
 import org.example.calendar_advanced.domain.comment.dto.CommentResponseDto;
-import org.example.calendar_advanced.domain.comment.dto.CommentSaveRequestDto;
+import org.example.calendar_advanced.domain.comment.dto.CommentCreateRequestDto;
 import org.example.calendar_advanced.domain.comment.dto.CommentUpdateRequestDto;
 import org.example.calendar_advanced.domain.comment.entity.Comment;
 import org.example.calendar_advanced.domain.comment.repository.CommentRepository;
-import org.example.calendar_advanced.domain.schedule.dto.ScheduleDeleteRequestDto;
-import org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto;
-import org.example.calendar_advanced.domain.schedule.dto.ScheduleUpdateRequestDto;
 import org.example.calendar_advanced.domain.schedule.entity.Schedule;
 import org.example.calendar_advanced.domain.schedule.repository.ScheduleRepository;
 import org.example.calendar_advanced.domain.user.entity.User;
@@ -33,10 +30,10 @@ public class CommentService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public CommentResponseDto saveComment(CommentSaveRequestDto commentSaveRequestDto, Long userId){
-        Comment comment = commentSaveRequestDto.toComment();
+    public CommentResponseDto createComment(CommentCreateRequestDto commentCreateRequestDto, Long userId){
+        Comment comment = commentCreateRequestDto.toComment();
 
-        Schedule findSchedule = scheduleRepository.findById(commentSaveRequestDto.getScheduleId()).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
+        Schedule findSchedule = scheduleRepository.findById(commentCreateRequestDto.getScheduleId()).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
         comment.setSchedule(findSchedule);
 
         User findUser = userRepository.findById(userId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
@@ -55,14 +52,14 @@ public class CommentService {
                 .build();
     }
 
-    @Transactional
-    public List<CommentResponseDto> getAllComments(){
-        return commentRepository.getAllComments();
+    @Transactional(readOnly = true)
+    public List<CommentResponseDto> findAllComments(){
+        return commentRepository.findAllComments();
     }
 
-    @Transactional
-    public CommentResponseDto getCommentById(Long commentId){
-        return commentRepository.getCommentById(commentId).orElseThrow(() -> new Exception404(ErrorCode.COMMENT_NOT_FOUND));
+    @Transactional(readOnly = true)
+    public CommentResponseDto findCommentById(Long commentId){
+        return commentRepository.findCommentById(commentId).orElseThrow(() -> new Exception404(ErrorCode.COMMENT_NOT_FOUND));
     }
 
     @Transactional
@@ -77,7 +74,7 @@ public class CommentService {
         findComment.updateContent(commentUpdateRequestDto.getContent());
 
         // 댓글을 찾아서 리턴
-        return commentRepository.getCommentById(commentId).orElseThrow(() -> new Exception404(ErrorCode.COMMENT_NOT_FOUND));
+        return commentRepository.findCommentById(commentId).orElseThrow(() -> new Exception404(ErrorCode.COMMENT_NOT_FOUND));
 
     }
 
@@ -94,7 +91,7 @@ public class CommentService {
 
     private void validateLoginUser(Long commentId, Long userId){
         // 현재 로그인한 유저의 일정인지 확인
-        String findUserId = commentRepository.getUserIdByCommentId(commentId).orElseThrow(() -> new Exception404(ErrorCode.COMMENT_NOT_FOUND));
+        String findUserId = commentRepository.findUserIdByCommentId(commentId).orElseThrow(() -> new Exception404(ErrorCode.COMMENT_NOT_FOUND));
         if(userId != Long.parseLong(findUserId)){
             throw new Exception403(ErrorCode.COMMENT_ACCESS_DENIED);
         }

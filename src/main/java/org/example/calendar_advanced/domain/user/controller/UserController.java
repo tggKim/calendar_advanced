@@ -9,12 +9,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.calendar_advanced.domain.user.dto.UserDeleteRequestDto;
 import org.example.calendar_advanced.domain.user.dto.UserResponseDto;
-import org.example.calendar_advanced.domain.user.dto.UserSaveRequestDto;
+import org.example.calendar_advanced.domain.user.dto.UserCreateRequestDto;
 import org.example.calendar_advanced.domain.user.dto.UserUpdateRequestDto;
 import org.example.calendar_advanced.domain.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -28,18 +27,18 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> saveUser(@Valid @RequestBody UserSaveRequestDto userSaveRequestDto){
-        return new ResponseEntity<>(userService.saveUser(userSaveRequestDto), HttpStatus.CREATED);
+    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserCreateRequestDto userCreateRequestDto){
+        return new ResponseEntity<>(userService.createUser(userCreateRequestDto), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDto>> getAllUsers(){
-        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    public ResponseEntity<List<UserResponseDto>> findAllUsers(){
+        return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserResponseDto> getUserByUserId(@PathVariable("userId") Long userId){
-        return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
+    public ResponseEntity<UserResponseDto> findUserByUserId(@PathVariable("userId") Long userId){
+        return new ResponseEntity<>(userService.findUserById(userId), HttpStatus.OK);
     }
 
     @PatchMapping("/{userId}")

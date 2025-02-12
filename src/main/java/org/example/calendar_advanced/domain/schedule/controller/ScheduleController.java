@@ -6,9 +6,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleDeleteRequestDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto;
-import org.example.calendar_advanced.domain.schedule.dto.ScheduleSaveRequestDto;
+import org.example.calendar_advanced.domain.schedule.dto.ScheduleCreateRequestDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleUpdateRequestDto;
-import org.example.calendar_advanced.domain.schedule.repository.ScheduleRepository;
 import org.example.calendar_advanced.domain.schedule.service.ScheduleService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -29,22 +28,22 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping
-    public ResponseEntity<ScheduleResponseDto> saveSchedule(@Valid @RequestBody ScheduleSaveRequestDto scheduleSaveRequestDto, HttpServletRequest httpServletRequest){
+    public ResponseEntity<ScheduleResponseDto> createSchedule(@Valid @RequestBody ScheduleCreateRequestDto scheduleCreateRequestDto, HttpServletRequest httpServletRequest){
 
         Long userId = getUserIdBySession(httpServletRequest);
 
-        return new ResponseEntity<>(scheduleService.saveSchedule(scheduleSaveRequestDto, userId), HttpStatus.CREATED);
+        return new ResponseEntity<>(scheduleService.createSchedule(scheduleCreateRequestDto, userId), HttpStatus.CREATED);
 
     }
 
     @GetMapping
-    public ResponseEntity<List<ScheduleResponseDto>> getAllSchedules(@PageableDefault(page = 0, size = 10, sort = "scheduleId", direction = Sort.Direction.ASC) Pageable pageable){
-        return new ResponseEntity<>(scheduleService.getAllSchedules(pageable), HttpStatus.OK);
+    public ResponseEntity<List<ScheduleResponseDto>> findAllSchedules(@PageableDefault(page = 0, size = 10, sort = "scheduleId", direction = Sort.Direction.ASC) Pageable pageable){
+        return new ResponseEntity<>(scheduleService.findAllSchedules(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/{scheduleId}")
-    public ResponseEntity<ScheduleResponseDto> getScheduleById(@PathVariable("scheduleId") Long scheduleId){
-        return new ResponseEntity<>(scheduleService.getScheduleById(scheduleId), HttpStatus.OK);
+    public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable("scheduleId") Long scheduleId){
+        return new ResponseEntity<>(scheduleService.findScheduleById(scheduleId), HttpStatus.OK);
     }
 
     @PatchMapping("/{scheduleId}")

@@ -5,7 +5,7 @@ import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.example.calendar_advanced.domain.user.dto.UserDeleteRequestDto;
 import org.example.calendar_advanced.domain.user.dto.UserResponseDto;
-import org.example.calendar_advanced.domain.user.dto.UserSaveRequestDto;
+import org.example.calendar_advanced.domain.user.dto.UserCreateRequestDto;
 import org.example.calendar_advanced.domain.user.dto.UserUpdateRequestDto;
 import org.example.calendar_advanced.domain.user.entity.User;
 import org.example.calendar_advanced.domain.user.repository.UserRepository;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -33,28 +32,28 @@ public class UserService {
 
     // 유저 저장
     @Transactional
-    public UserResponseDto saveUser(UserSaveRequestDto userSaveRequestDto){
+    public UserResponseDto createUser(UserCreateRequestDto userCreateRequestDto){
 
-        if(userRepository.existsByEmail(userSaveRequestDto.getEmail())){
+        if(userRepository.existsByEmail(userCreateRequestDto.getEmail())){
             throw new Exception409(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
 
-        String encodedPassword = passwordEncoder.encode(userSaveRequestDto.getPassword());
+        String encodedPassword = passwordEncoder.encode(userCreateRequestDto.getPassword());
 
-        User savedUser = userRepository.save(new User(userSaveRequestDto.getUsername(), userSaveRequestDto.getEmail(), encodedPassword));
+        User savedUser = userRepository.save(new User(userCreateRequestDto.getUsername(), userCreateRequestDto.getEmail(), encodedPassword));
         return new UserResponseDto(savedUser);
     }
 
     // 유저 단건 조회
-    @Transactional
-    public UserResponseDto getUserById(Long userId){
+    @Transactional(readOnly = true)
+    public UserResponseDto findUserById(Long userId){
         User findUser = userRepository.findById(userId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
         return new UserResponseDto(findUser);
     }
 
     // 유저 모두 조회
-    @Transactional
-    public List<UserResponseDto> getAllUsers(){
+    @Transactional(readOnly = true)
+    public List<UserResponseDto> findAllUsers(){
         return userRepository.findAll().stream().map(UserResponseDto::new).toList();
     }
 

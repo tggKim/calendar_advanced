@@ -3,13 +3,12 @@ package org.example.calendar_advanced.domain.schedule.service;
 import lombok.RequiredArgsConstructor;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleDeleteRequestDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto;
-import org.example.calendar_advanced.domain.schedule.dto.ScheduleSaveRequestDto;
+import org.example.calendar_advanced.domain.schedule.dto.ScheduleCreateRequestDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleUpdateRequestDto;
 import org.example.calendar_advanced.domain.schedule.entity.Schedule;
 import org.example.calendar_advanced.domain.schedule.repository.ScheduleRepository;
 import org.example.calendar_advanced.domain.user.entity.User;
 import org.example.calendar_advanced.domain.user.repository.UserRepository;
-import org.example.calendar_advanced.domain.user.service.UserService;
 import org.example.calendar_advanced.global.config.PasswordEncoder;
 import org.example.calendar_advanced.global.error.ErrorCode;
 import org.example.calendar_advanced.global.error.exception.Exception401;
@@ -30,8 +29,8 @@ public class ScheduleService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public ScheduleResponseDto saveSchedule(ScheduleSaveRequestDto scheduleSaveRequestDto, Long userId){
-        Schedule schedule = scheduleSaveRequestDto.toSchedule();
+    public ScheduleResponseDto createSchedule(ScheduleCreateRequestDto scheduleCreateRequestDto, Long userId){
+        Schedule schedule = scheduleCreateRequestDto.toSchedule();
 
         User findUser = userRepository.findById(userId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
 
@@ -51,14 +50,14 @@ public class ScheduleService {
                 .build();
     }
 
-    @Transactional
-    public List<ScheduleResponseDto> getAllSchedules(Pageable pageable){
-        return scheduleRepository.getAllSchedules(pageable);
+    @Transactional(readOnly = true)
+    public List<ScheduleResponseDto> findAllSchedules(Pageable pageable){
+        return scheduleRepository.findAllSchedules(pageable);
     }
 
-    @Transactional
-    public ScheduleResponseDto getScheduleById(Long scheduleId){
-        return scheduleRepository.getScheduleById(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
+    @Transactional(readOnly = true)
+    public ScheduleResponseDto findScheduleById(Long scheduleId){
+        return scheduleRepository.findScheduleById(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
     }
 
     @Transactional
@@ -74,7 +73,7 @@ public class ScheduleService {
         findSchedule.updateTodo(scheduleUpdateRequestDto.getTodo());
 
         // 일정을 찾아서 리턴
-        return scheduleRepository.getScheduleById(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
+        return scheduleRepository.findScheduleById(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
 
     }
 
@@ -91,7 +90,7 @@ public class ScheduleService {
 
     private void validateLoginUser(Long scheduleId, Long userId){
         // 현재 로그인한 유저의 일정인지 확인
-        String findUserId = scheduleRepository.getUserIdByScheduleId(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
+        String findUserId = scheduleRepository.findUserIdByScheduleId(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
         if(userId != Long.parseLong(findUserId)){
             throw new Exception403(ErrorCode.SCHEDULE_ACCESS_DENIED);
         }

@@ -6,7 +6,7 @@ import lombok.Getter;
 import org.example.calendar_advanced.domain.comment.entity.Comment;
 
 @Getter
-public class CommentSaveRequestDto {
+public class CommentCreateRequestDto {
     @NotBlank(message = "댓글 내용은 필수 입력 값 입니다.")
     private String content;
 

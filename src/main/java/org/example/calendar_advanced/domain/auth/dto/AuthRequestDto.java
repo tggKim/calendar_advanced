@@ -1,18 +1,11 @@
-package org.example.calendar_advanced.domain.user.dto;
+package org.example.calendar_advanced.domain.auth.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.example.calendar_advanced.domain.user.entity.User;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-public class UserSaveRequestDto {
-    @NotBlank(message = "이름은 필수 입력 값입니다.")
-    private String username;
+public class AuthRequestDto {
 
     @Email(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "올바른 이메일 형식이 아닙니다.")
     @NotBlank(message = "이메일은 필수 입력 값입니다.")
