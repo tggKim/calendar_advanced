@@ -22,7 +22,8 @@ public enum ErrorCode {
     USER_NOT_FOUND_BY_EMAIL("해당 이메일로 등록된 유저가 없습니다.", HttpStatus.NOT_FOUND),
 
     //409 에러
-    EMAIL_ALREADY_EXISTS("이미 사용 중인 이메일입니다.", HttpStatus.CONFLICT);
+    EMAIL_ALREADY_EXISTS("이미 사용 중인 이메일입니다.", HttpStatus.CONFLICT),
+    ALREADY_LOGGED_IN("이미 로그인된 상태입니다.", HttpStatus.CONFLICT);;
 
     private String message;
     private HttpStatus httpStatus;
