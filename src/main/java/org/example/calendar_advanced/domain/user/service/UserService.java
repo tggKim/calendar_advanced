@@ -46,14 +46,14 @@ public class UserService {
     }
 
     // 유저 단건 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public UserResponseDto getUserById(Long userId){
         User findUser = userRepository.findById(userId).orElseThrow(() -> new Exception404(ErrorCode.USER_NOT_FOUND));
         return new UserResponseDto(findUser);
     }
 
     // 유저 모두 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public List<UserResponseDto> getAllUsers(){
         return userRepository.findAll().stream().map(UserResponseDto::new).toList();
     }

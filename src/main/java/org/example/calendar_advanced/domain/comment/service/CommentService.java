@@ -55,12 +55,12 @@ public class CommentService {
                 .build();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CommentResponseDto> getAllComments(){
         return commentRepository.getAllComments();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public CommentResponseDto getCommentById(Long commentId){
         return commentRepository.getCommentById(commentId).orElseThrow(() -> new Exception404(ErrorCode.COMMENT_NOT_FOUND));
     }

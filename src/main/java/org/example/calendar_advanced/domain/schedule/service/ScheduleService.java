@@ -51,12 +51,12 @@ public class ScheduleService {
                 .build();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ScheduleResponseDto> getAllSchedules(Pageable pageable){
         return scheduleRepository.getAllSchedules(pageable);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ScheduleResponseDto getScheduleById(Long scheduleId){
         return scheduleRepository.getScheduleById(scheduleId).orElseThrow(() -> new Exception404(ErrorCode.SCHEDULE_NOT_FOUND));
     }
