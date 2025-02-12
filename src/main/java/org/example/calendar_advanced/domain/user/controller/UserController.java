@@ -12,6 +12,7 @@ import org.example.calendar_advanced.domain.user.dto.UserResponseDto;
 import org.example.calendar_advanced.domain.user.dto.UserCreateRequestDto;
 import org.example.calendar_advanced.domain.user.dto.UserUpdateRequestDto;
 import org.example.calendar_advanced.domain.user.service.UserService;
+import org.example.calendar_advanced.global.util.SessionUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final SessionUtil sessionUtil;
 
     @PostMapping
     public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserCreateRequestDto userCreateRequestDto){
@@ -44,7 +46,7 @@ public class UserController {
     @PatchMapping("/{userId}")
     public ResponseEntity<UserResponseDto> updateUser(@PathVariable("userId") Long userId,@Valid @RequestBody UserUpdateRequestDto userUpdateRequestDto, HttpServletRequest httpServletRequest){
 
-        Long sessionUserId = getUserIdBySession(httpServletRequest);
+        Long sessionUserId = sessionUtil.findUserIdBySession(httpServletRequest);
 
         return new ResponseEntity<>(userService.updateUser(userId, sessionUserId, userUpdateRequestDto), HttpStatus.OK);
     }
@@ -52,21 +54,12 @@ public class UserController {
     @PostMapping("/{userId}")
     public void deleteUser(@PathVariable("userId") Long userId, @Valid @RequestBody UserDeleteRequestDto userDeleteRequestDto, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Long sessionUserId = getUserIdBySession(request);
+        Long sessionUserId = sessionUtil.findUserIdBySession(request);
 
         userService.deleteUser(userId, sessionUserId, userDeleteRequestDto);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/api/logout");
         dispatcher.forward(request, response);
-    }
-
-    private Long getUserIdBySession(HttpServletRequest httpServletRequest){
-        HttpSession session = httpServletRequest.getSession();
-        Long userId = null;
-        if(session != null && session.getAttribute("userId") != null){
-            userId = (Long) session.getAttribute("userId");
-        }
-        return userId;
     }
 
 }

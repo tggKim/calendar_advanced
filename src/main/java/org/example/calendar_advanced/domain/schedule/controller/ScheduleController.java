@@ -9,6 +9,7 @@ import org.example.calendar_advanced.domain.schedule.dto.ScheduleResponseDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleCreateRequestDto;
 import org.example.calendar_advanced.domain.schedule.dto.ScheduleUpdateRequestDto;
 import org.example.calendar_advanced.domain.schedule.service.ScheduleService;
+import org.example.calendar_advanced.global.util.SessionUtil;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -26,11 +27,12 @@ import java.util.List;
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
+    private final SessionUtil sessionUtil;
 
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@Valid @RequestBody ScheduleCreateRequestDto scheduleCreateRequestDto, HttpServletRequest httpServletRequest){
 
-        Long userId = getUserIdBySession(httpServletRequest);
+        Long userId = sessionUtil.findUserIdBySession(httpServletRequest);
 
         return new ResponseEntity<>(scheduleService.createSchedule(scheduleCreateRequestDto, userId), HttpStatus.CREATED);
 
@@ -49,7 +51,7 @@ public class ScheduleController {
     @PatchMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> updateSchedule(@PathVariable("scheduleId") Long scheduleId, @Valid @RequestBody ScheduleUpdateRequestDto scheduleUpdateRequestDto, HttpServletRequest httpServletRequest){
 
-        Long sessionUserId = getUserIdBySession(httpServletRequest);
+        Long sessionUserId = sessionUtil.findUserIdBySession(httpServletRequest);
 
         return new ResponseEntity<>(scheduleService.updateSchedule(scheduleId, sessionUserId, scheduleUpdateRequestDto), HttpStatus.OK);
     }
@@ -57,19 +59,11 @@ public class ScheduleController {
     @PostMapping("/{scheduleId}")
     public ResponseEntity<Void> deleteSchedule(@PathVariable("scheduleId") Long scheduleId, @Valid @RequestBody ScheduleDeleteRequestDto scheduleDeleteRequestDto, HttpServletRequest httpServletRequest){
 
-        Long sessionUserId = getUserIdBySession(httpServletRequest);
+        Long sessionUserId = sessionUtil.findUserIdBySession(httpServletRequest);
 
         scheduleService.deleteSchedule(scheduleId, sessionUserId, scheduleDeleteRequestDto);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    private Long getUserIdBySession(HttpServletRequest httpServletRequest){
-        HttpSession session = httpServletRequest.getSession();
-        Long userId = null;
-        if(session != null && session.getAttribute("userId") != null){
-            userId = (Long) session.getAttribute("userId");
-        }
-        return userId;
-    }
 }
