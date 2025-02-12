@@ -38,7 +38,7 @@
     "password" : "1234"
 }
 ```
-- email -> 유저 이메
+- email -> 유저 이메일
 - password -> 비밀번호
     
 </details>
