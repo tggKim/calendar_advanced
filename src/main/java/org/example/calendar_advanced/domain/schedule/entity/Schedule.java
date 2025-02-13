@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.calendar_advanced.domain.baseentity.BaseEntity;
 import org.example.calendar_advanced.domain.comment.entity.Comment;
 import org.example.calendar_advanced.domain.user.entity.User;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,10 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Getter
 @NoArgsConstructor
-public class Schedule {
+public class Schedule extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long scheduleId;
 
@@ -34,14 +34,6 @@ public class Schedule {
 
     @Column(nullable = false)
     private String todo;
-
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdDate;
-
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime updatedDate;
 
     public Schedule(String title, String todo){
         this.title = title;
