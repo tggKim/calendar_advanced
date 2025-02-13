@@ -1,5 +1,9 @@
 # 일정 관리 앱 calendar
 
+# 요구사항
+
+https://teamsparta.notion.site/Spring-5-CH-3-Develop-1912dc3ef51480d38f69ed0f0b7c5338
+
 # 개발 환경
 <div>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
