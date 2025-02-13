@@ -1371,3 +1371,10 @@
 - 401 Unauthorized
 - 비밀번호가 틀리면 오류가 발생합니다.
 </details>
+
+
+<hr>
+
+# 트러블 슈팅
+
+https://velog.io/@tgg/%EC%9D%BC%EC%A0%95-%EA%B4%80%EB%A6%AC-%EC%95%B1-JPA-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85
