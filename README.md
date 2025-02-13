@@ -605,6 +605,7 @@
 <summary>Request</summary>
 
 - api/schedules GET 요청하면 됩니다.
+- size, page, sort 파라미터를 통해서 페이징처리를 할 수 있습니다.
     
 </details>
 
@@ -659,7 +660,7 @@
 ```
 []
 ```
-- 일정이이 존재하지 않으면 빈 리스트를 반환합니다.
+- 일정이 존재하지 않으면 빈 리스트를 반환합니다.
 </details>
 
 
